@@ -8,13 +8,26 @@
 .padding{
     padding:30pt;
 }
-.line{
+.lline{
     padding:0pt;
     color:#FFFFFF;
     border:none;
     border-top:solid 0.02px;
     position:relative;
-    left:-30pt;
+    left:-50pt;
+}
+.rline{
+    padding:0pt;
+    color:#FFFFFF;
+    border:none;
+    border-top:solid 0.02px;
+    position:relative;
+    width:70%;
+    right:-150pt;
+}
+.fontchange{
+    font-family:cursive;
+    font-size:60pt;
 }
 
 .cp_iptxt4n {
@@ -41,7 +54,7 @@
 }
 
 .cp_iptxt input[type='text'] {
-	font: 35px  "Times New Roman", serif;
+	font: 30px  "Times New Roman", serif;
 	box-sizing: border-box;
 	width: 100%;
 	letter-spacing: 1px;
