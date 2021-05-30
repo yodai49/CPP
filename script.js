@@ -6,3 +6,13 @@ $("#btn1").on("click",function(){
     let message = `今日は`+year+`年`+month+`月`+day+`日です！`;
     $("#tBox").val(message);
 })
+
+$('input').on('focusin', function() {
+    $(this).parent().find('label').addClass('active');
+  });
+  
+  $('input').on('focusout', function() {
+    if (!this.value) {
+      $(this).parent().find('label').removeClass('active');
+    }
+  });
