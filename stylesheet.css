@@ -141,15 +141,28 @@
 /*ほわっ*/
 .effect-fade {
     animation-name: fadein;
-    animation-duration: 2s;
+    animation-duration: 1.5s;
 }
 @keyframes fadein {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(0px);
     }
     to {
         opacity: 1;
         transform: translateY(0);
     }
+}
+/*右からスライドイン*/
+.effect-fade2 {
+    animation-name: slidein;
+    animation-duration: 1.5s;
+}
+@keyframes slidein {
+    from {
+        transform: translateX(500px);
     }
+    to {
+        transform: translateX(0);
+    }
+}
