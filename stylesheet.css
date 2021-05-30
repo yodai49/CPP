@@ -29,6 +29,7 @@
     font-family:cursive;
     font-size:60pt;
 }
+/*テキストボックス*/
 
 .cp_iptxt4n {
 	position: relative;
@@ -135,3 +136,20 @@
 	transition: 0.3s;
 	color: #FFFFFF;
 }
+
+
+/*ほわっ*/
+.effect-fade {
+    animation-name: fadein;
+    animation-duration: 2s;
+}
+@keyframes fadein {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    }
