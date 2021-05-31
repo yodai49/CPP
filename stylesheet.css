@@ -242,17 +242,13 @@ a.btn-border {
 	cursor:pointer;
 	position:absolute;
 	left:70pt;
+	outline:none;
 }
 .calbutton:hover {
 	background-color:#222222;
 	transition:0.3s;
 }
    
-  .calbutton:focus {
-	outline: none;
-	box-shadow: 0 0 0 4px #DDDDDD;
-  }
-
   .resultlabel1{
 	font-family :"Times New Roman", serif;
 	font-size:45pt;

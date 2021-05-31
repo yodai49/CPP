@@ -6,7 +6,6 @@ $("#calbutton").on("click",function(){
   k=Number(k);
   q=Number(q);
   var sum = n+k+q;
-  window.alert("EEE");
 })
 
 $(function(){
