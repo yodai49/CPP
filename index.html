@@ -6,34 +6,42 @@
         <link rel="stylesheet" href="stylesheet.css">
     </head>
     <body bgcolor = "black", text = "white">
-        <section class="effect-fade">
-            <h1 class="title padding">
-                <div class = "fontchange" style="display: inline-block">q</div>
-                - binomial coefficient calculator
-                <hr class="lline"></hr>
-            </h1>
-        </section>
-        <section class="effect-fade2">
-            <div class="cp_iptxt cp_iptxt4n">
-                <input class="ef" type="text" placeholder="">
-                <label>n=</label>
-                <span class="focus_line"><i></i></span>
-            </div>
-            <br><br><br>
-            <div class="cp_iptxt cp_iptxt4k">
-                <input class="ef" type="text" placeholder="">
-                <label>k=</label>
-                <span class="focus_line"><i></i></span>
-            </div>
-            <br><br><br>
-            <div class="cp_iptxt cp_iptxt4q">
-                <input class="ef" type="text" placeholder="">
-                <label>q=</label>
-                <span class="focus_line"><i></i></span>
-            </div>
-            <br><br><br>
-            <hr class="rline"></hr>
-        </section>
+        <div id="area1">
+            <section class="effect-fade">
+                <h1 class="title padding">
+                    <div class = "fontchange" style="display: inline-block">q</div>
+                    - binomial coefficient calculator
+                    <hr class="lline"></hr>
+                </h1>
+            </section>
+            <section class="effect-slide-r">
+                <div class="cp_iptxt cp_iptxt4n">
+                    <input class="ef" id="inputn" type="text" placeholder="">
+                    <label>n=</label>
+                    <span class="focus_line"><i></i></span>
+                </div>
+                <br><br><br><br>
+                <div class="cp_iptxt cp_iptxt4k">
+                    <input class="ef" id="inputk" type="text" placeholder="">
+                    <label>k=</label>
+                    <span class="focus_line"><i></i></span>
+                </div>
+                <br><br><br><br>
+                <div class="cp_iptxt cp_iptxt4q">
+                    <input class="ef" id="inputq" type="text" placeholder="">
+                    <label>q=</label>
+                    <span class="focus_line"><i></i></span>
+                </div>
+                <br><br><br><br>
+                <hr class="rline"></hr>
+            </section>
+            <br><br><br><br><br>
+            <button type="button" id="calbutton" class="calbutton effect-slide-l">calculate</button>
+        </div>
+        <br><br><br><br><br>
+        <label id="calresult1" class="resultlabel1">nCk_q</label>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script type="text/javascript" src="script.js"></script>
     </body>
 </html>
