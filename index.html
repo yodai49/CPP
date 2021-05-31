@@ -6,41 +6,52 @@
         <link rel="stylesheet" href="stylesheet.css">
     </head>
     <body bgcolor = "black", text = "white">
-        <div id="area1">
-            <section class="effect-fade">
-                <h1 class="title padding">
-                    <div class = "fontchange" style="display: inline-block">q</div>
-                    - binomial coefficient calculator
-                    <hr class="lline"></hr>
-                </h1>
-            </section>
-            <section class="effect-slide-r">
-                <div class="cp_iptxt cp_iptxt4n">
-                    <input class="ef" id="inputn" type="text" placeholder="">
-                    <label>n=</label>
-                    <span class="focus_line"><i></i></span>
-                </div>
-                <br><br><br><br>
-                <div class="cp_iptxt cp_iptxt4k">
-                    <input class="ef" id="inputk" type="text" placeholder="">
-                    <label>k=</label>
-                    <span class="focus_line"><i></i></span>
-                </div>
-                <br><br><br><br>
-                <div class="cp_iptxt cp_iptxt4q">
-                    <input class="ef" id="inputq" type="text" placeholder="">
-                    <label>q=</label>
-                    <span class="focus_line"><i></i></span>
-                </div>
-                <br><br><br><br>
-                <hr class="rline"></hr>
-            </section>
-            <br><br><br><br><br>
-            <button type="button" id="calbutton" class="calbutton effect-slide-l">calculate</button>
-        </div>
+        <section class="effect-fade">
+            <h1 class="title padding">
+                <div class = "fontchange" style="display: inline-block">q</div>
+                - binomial coefficient calculator
+                <hr class="lline"></hr>
+            </h1>
+        </section>
+        <section class="effect-slide-r">
+            <div class="cp_iptxt cp_iptxt4n">
+                <input class="ef" id="inputn" type="text" placeholder="">
+                <label>n=</label>
+                <span class="focus_line"><i></i></span>
+            </div>
+            <br><br><br><br>
+            <div class="cp_iptxt cp_iptxt4k">
+                <input class="ef" id="inputk" type="text" placeholder="">
+                <label>k=</label>
+                <span class="focus_line"><i></i></span>
+            </div>
+            <br><br><br><br>
+            <div class="cp_iptxt cp_iptxt4q">
+                <input class="ef" id="inputq" type="text" placeholder="">
+                <label>q=</label>
+                <span class="focus_line"><i></i></span>
+            </div>
+            <br><br><br><br>
+            <hr class="rline"></hr>
+        </section>
         <br><br><br><br><br>
-        <label id="calresult1" class="resultlabel1">nCk_q</label>
-
+        <button type="button" id="calbutton" class="calbutton effect-slide-l">calculate</button><br><br><br>
+        <label id="calresult1" class="resultlabel1">nCk_q=...3.58</label>
+        <br><br><br><br><br><br><br><br><br><br>
+        <button type="button" id="fmlbutton" class="calbutton effect-slide-l">formula</button><br><br><br>
+        <label id="calresult1" class="resultlabel1">nCk_q=1+q+q^2+...</label>
+        <br><br><br><br><br><br><br><br><br><br>
+        <button type="button" id="vslbutton" class="calbutton effect-slide-l">visualize</button><br><br><br>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <div class="notice1">
+            This calculator is developed by yodai suzuki.It enables to calculate the value of q-binomial coefficient.
+        </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <div class="notice2">
+            Q-binomial coefficient is also called "Gaussian binomial coefficient".It is q-analogue of binomial coefficient.
+        </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <div class="notice3">
+            This web page provides the value of q-binomial coefficient using the equation "nCk_q=q^(n-k)*(n-1)C(k-1)_q+nC(k-1)"
+        </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script type="text/javascript" src="script.js"></script>
     </body>

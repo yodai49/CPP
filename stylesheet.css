@@ -254,9 +254,32 @@ a.btn-border {
   }
 
   .resultlabel1{
-	  font-size:60pt;
+	  font-size:40pt;
 	  opacity:1;
 	  transition:3s;
 	  position:absolute;
-	  right:500pt;
+	  right:10%;
   }
+  
+  .notice1{
+	  font-family :"Times New Roman", serif;
+	  font-size:20pt;
+	  position:absolute;
+	  left:30%;
+	  width:40%;
+  }
+
+  .notice2{
+	font-family :"Times New Roman", serif;
+	font-size:20pt;
+	position:absolute;
+	left:55%;
+	width:40%;
+}
+.notice3{
+	font-family :"Times New Roman", serif;
+	font-size:20pt;
+	position:absolute;
+	left:5%;
+	width:40%;
+}
