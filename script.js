@@ -1,18 +1,10 @@
-$("#btn1").on("click",function(){
-    let date= new Date();
-    let year = date.getFullYear();
-    let month = date.getMonth()+1;
-    let day = date.getDate();
-    let message = `今日は`+year+`年`+month+`月`+day+`日です！`;
-    $("#tBox").val(message);
-})
-
-$('input').on('focusin', function() {
-    $(this).parent().find('label').addClass('active');
-  });
+$("#calbutton").on("click",function(){
+  var n=document.getElementById(`inputn`).value;
+  var k=document.getElementById(`inputk`).value;
+  var q=document.getElementById(`inputq`).value;
+  n=Number(n);
+  k=Number(k);
+  q=Number(q);
+  var sum = n+k+q;
   
-  $('input').on('focusout', function() {
-    if (!this.value) {
-      $(this).parent().find('label').removeClass('active');
-    }
-  });
+})
