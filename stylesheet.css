@@ -255,7 +255,8 @@ a.btn-border {
 	  opacity:1;
 	  transition:3s;
 	  position:absolute;
-	  right:10%;
+	  right:22%;
+	  margin-top:42pt;
   }
 
   .resultlabel2{
@@ -301,4 +302,11 @@ a.btn-border {
 
 .fade_on {
     opacity: 2;
+}
+
+.math{
+	font-size:30pt;
+	position:absolute;
+	right:22%;
+	margin-right:150pt;
 }
