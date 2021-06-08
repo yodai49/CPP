@@ -6,7 +6,8 @@
     font-size:30pt;
 }
 .padding{
-    padding:30pt;
+    padding-left:30pt;
+	padding-top:-60pt;
 }
 .lline{
     padding:0pt;
@@ -21,10 +22,19 @@
     color:#FFFFFF;
     border:none;
     border-top:solid 0.02px;
-    position:relative;
-    width:70%;
-    right:-200pt;
+    position:absolute;
+    width:50%;
+	left:50%;
 }
+
+.error{
+	font-size:15pt;
+	position:absolute;
+	left:0%;
+	margin-left:250pt;
+	margin-top:5pt;
+}
+
 .fontchange{
     font-family:cursive;
     font-size:60pt;
@@ -33,7 +43,7 @@
 
 .cp_iptxt4n {
 	position: relative;
-	width: 30%;    
+	width: 20%;    
     position:absolute;
     right:0pt;
     margin:0 30pt 0 0;
@@ -41,14 +51,14 @@
 
 .cp_iptxt4k {
 	position: relative;
-	width: 30%;
+	width: 20%;
     position:absolute;
     right:0pt;
     margin:0 120pt 0 0;
 }
 .cp_iptxt4q {
 	position: relative;
-	width: 30%;
+	width: 20%;
     position:absolute;
     right:0pt;
     margin:0 210pt 0 0;
@@ -154,6 +164,24 @@
         transform: translateY(0);
     }
 }
+
+/*ゆっくりほわっ*/
+.effect-fadeslow {
+    animation-name: fadein;
+    animation-duration: 3.5s;
+}
+@keyframes fadein {
+    from {
+        opacity: 0;
+        transform: translateY(0px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
 /*右からスライドイン*/
 .effect-slide-r {
     animation-name: slideinr;
@@ -249,34 +277,47 @@ a.btn-border {
 	transition:0.3s;
 }
    
-  .resultlabel1{
+.resultlabel1{
 	font-family :"Times New Roman", serif;
 	font-size:45pt;
-	  opacity:1;
-	  transition:3s;
-	  position:absolute;
-	  right:22%;
-	  margin-top:42pt;
-  }
+	opacity:1;
+	transition:3s;
+	position:absolute;
+	left:45%;
+	margin-top:42pt;
+	margin-left:120pt;
+	-webkit-transition: all 2s;
+	-moz-transition: all 2s;
+	-o-transition: all 2s;
+	-ms-transition: all 2s;
+	transition: all 2s;
+}
 
-  .resultlabel2{
+.resultlabel2{
 	font-family :"Times New Roman", serif;
-	font-size:35pt;
-	  opacity:1;
-	  transition:3s;
-	  position:absolute;
-	  right:10%;
-  }
-  
-  .notice1{
-	  font-family :"Times New Roman", serif;
-	  font-size:20pt;
-	  position:absolute;
-	  left:30%;
-	  width:40%;
-  }
+	font-size:45pt;
+	opacity:1;
+	transition:3s;
+	position:absolute;
+	left:45%;
+	margin-top:42pt;
+	margin-left:120pt;
+	-webkit-transition: all 2s;
+	-moz-transition: all 2s;
+	-o-transition: all 2s;
+	-ms-transition: all 2s;
+	transition: all 2s;
+}
 
-  .notice2{
+.notice1{
+	font-family :"Times New Roman", serif;
+	font-size:20pt;
+	position:absolute;
+	left:30%;
+	width:40%;
+}
+
+.notice2{
 	font-family :"Times New Roman", serif;
 	font-size:20pt;
 	position:absolute;
@@ -292,12 +333,16 @@ a.btn-border {
 }
 
 .fade_off {
+	opacity: 0;
+	-webkit-transition: all 2s;
+	-moz-transition: all 2s;
+	-o-transition: all 2s;
+	-ms-transition: all 2s;
+	transition: all 2s;
+}
+
+.transparent {
     opacity: 0;
-    -webkit-transition: all 2s;
-    -moz-transition: all 2s;
-    -o-transition: all 2s;
-    -ms-transition: all 2s;
-    transition: all 2s;
 }
 
 .fade_on {
@@ -307,6 +352,6 @@ a.btn-border {
 .math{
 	font-size:30pt;
 	position:absolute;
-	right:22%;
+	left:45%;
 	margin-right:150pt;
 }
