@@ -29,6 +29,7 @@
 
 .error{
 	font-size:15pt;
+	font-family:"Times New Roman",serif;
 	position:absolute;
 	left:0%;
 	margin-left:250pt;
@@ -283,9 +284,8 @@ a.btn-border {
 	opacity:1;
 	transition:3s;
 	position:absolute;
-	left:45%;
+	left:47%;
 	margin-top:42pt;
-	margin-left:120pt;
 	-webkit-transition: all 2s;
 	-moz-transition: all 2s;
 	-o-transition: all 2s;
@@ -352,6 +352,5 @@ a.btn-border {
 .math{
 	font-size:30pt;
 	position:absolute;
-	left:45%;
-	margin-right:150pt;
+	right:55%;
 }
