@@ -38,7 +38,6 @@ function qcal(n,k,q){
 }
 
 $("#calbutton").on("click",function(){
-//  document.getElementById(`result1`).classList.add("transparent");
   var n=document.getElementById(`inputn`).value;
   var k=document.getElementById(`inputk`).value;
   var q=document.getElementById(`inputq`).value;
@@ -57,6 +56,93 @@ $("#calbutton").on("click",function(){
     document.getElementById(`error`).animate([{opacity:`1`},{opacity:`0`}],300);
     document.getElementById(`error`).textContent=``;    
   }
+})
+
+$("#visbutton").on("click",function(){ //visualize
+  var n=document.getElementById(`inputn`).value;
+  var k=document.getElementById(`inputk`).value;
+  var q=document.getElementById(`inputq`).value;
+  n=Number(n);
+  k=Number(k);
+  q=Number(q);
+  k=n/2;
+  
+  if (isNaN(qcal(n,1,q))|| n > 100){
+    return 0;
+  }
+  //window.alert(qcal(n,n/2,q));
+  var comq=[];
+  var powq=[];
+  var qdata=[];
+  var axis=[];
+  var result;
+
+  powq[0]=1;
+  for(var i = 1; i <= n;i++){
+    powq[i]=powq[i-1]*q;
+  }
+  for(var i = 0; i<= (n+1);i++){
+    comq[i]=[];
+    for(var j = 0;j <= (n+1); j++){
+      comq[i][j]=0;
+    }
+  }
+  comq[0][0]=1;
+  for(var i = 1;i <= n; i++){
+//    comq[i]=[];
+    comq[i][0]=1;
+    for(var j = 1;j<=(i+1);j++){
+      comq[i][j]=comq[i-1][j-1]+powq[j]*comq[i-1][j];
+    }
+  }
+ for (var i = 0 ;i <= n;i++){
+    qdata[i]=comq[n][i];
+    axis[i] = i;
+  }
+ var ctx = document.getElementById("chart01").getContext('2d');  
+  var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+    labels: axis.slice(0,n+1),
+    datasets: [{
+    label: 'nCk_q',
+    pointRadius:4,
+    pointBackgroundColor: "#444444",
+    data: qdata.slice(0,n+1),
+    backgroundColor: [
+      'rgba(200, 200, 192, 0.2)'
+    ],
+    borderColor: [
+      'rgba(255,255,255,1)'
+    ],
+    borderWidth: 1
+    }]
+  },
+  options: {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero:true,
+          max: qcal(n,k,q)
+        }
+      }]
+    },
+      maintainAspectRatio: false,
+      legend: {
+        display:false
+    },
+    annotation: {
+      annotations: [{
+        type: 'line',
+        mode: 'horizontal',
+        scaideID: 'y-axis-0',
+        value:5,
+        borderColor: 'rbg(100,100,100',
+        borderWidth:4,
+      }]
+    }
+  }
+});
 })
 
 $(function(){
@@ -105,3 +191,4 @@ $(function(){
     });
   });
 });
+

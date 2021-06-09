@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html>        
+<html lang="en">        
     <head>
         <meta charset="utf-8">
         <title>q-binomial coefficient calculator</title>
         <link rel="stylesheet" href="stylesheet.css">
         <script type="text/javascript" async 
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
-    </script>
-    <script src="js/jquery.js"></script>
+            src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script><!-- latex -->
+        <script src="js/jquery.js"></script><!-- jquery -->
     </head>
     <body bgcolor = "black", text = "white">
         <section class="effect-fade">
@@ -64,10 +64,16 @@
             
         </label>
         <br><br><br><br><br><br><br><br><br><br>
-        <button type="button" id="vslbutton" class="calbutton effect-slide-l">visualize</button><br><br><br>
 
-    
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <button type="button" id="visbutton" class="calbutton effect-slide-l">visualize</button><br><br><br>
+
+        <div class="wrap-chart">
+            <div class="chart-container" style="position: relative; width: 100%;height:400pt">
+                <canvas id="chart01"></canvas>            
+            </div>
+        </div>
+
+        <br><br><br><br><br><br>
         <div class="notice1 fade_off" id ="notice1">
             This calculator is developed by yodai suzuki.It enables to calculate the value of q-binomial coefficient.
         </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -77,8 +83,9 @@
         <div class="notice3 fade_off" id="notice3">
             This web page provides the value of q-binomial coefficient using the equality "nCk_q=q^(n-k)*(n-1)C(k-1)_q+nC(k-1)"
         </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
         <script type="text/javascript" src="script.js"></script>
+
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
     </body>
 </html>
