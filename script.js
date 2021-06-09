@@ -65,7 +65,7 @@ $("#visbutton").on("click",function(){ //visualize
   n=Number(n);
   k=Number(k);
   q=Number(q);
-  k=n/2;
+  k=Math.floor(n/2);
   
   if (isNaN(qcal(n,1,q))|| n > 100){
     return 0;
@@ -100,6 +100,8 @@ $("#visbutton").on("click",function(){ //visualize
     axis[i] = i;
   }
  var ctx = document.getElementById("chart01").getContext('2d');  
+ var qmax;
+  qmax = qcal(n,k,q)*1.1;
   var myChart = new Chart(ctx, {
     type: 'line',
     data: {
@@ -107,6 +109,10 @@ $("#visbutton").on("click",function(){ //visualize
     datasets: [{
     label: 'nCk_q',
     pointRadius:4,
+    pointHoverRadius:8,
+    pointBackgroundcolor:"#101010",
+    pointBorderColor:"#EEEEEE",
+    pointBorderWidth:1,
     pointBackgroundColor: "#444444",
     data: qdata.slice(0,n+1),
     backgroundColor: [
@@ -122,8 +128,9 @@ $("#visbutton").on("click",function(){ //visualize
     scales: {
       yAxes: [{
         ticks: {
-          beginAtZero:true,
-          max: qcal(n,k,q)
+          beginAtZero:false,
+          max: qmax,
+          min:1
         }
       }]
     },
@@ -136,13 +143,14 @@ $("#visbutton").on("click",function(){ //visualize
         type: 'line',
         mode: 'horizontal',
         scaideID: 'y-axis-0',
-        value:5,
-        borderColor: 'rbg(100,100,100',
-        borderWidth:4,
+        value:1000,
+        borderColor: '#FFFFFF',
+        borderWidth:30
       }]
     }
   }
 });
+myChart.update();
 })
 
 $(function(){
