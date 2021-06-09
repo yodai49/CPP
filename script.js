@@ -1,3 +1,5 @@
+var myChart;
+
 function qcal(n,k,q){
   var comq=[];
   var powq=[];
@@ -102,7 +104,8 @@ $("#visbutton").on("click",function(){ //visualize
  var ctx = document.getElementById("chart01").getContext('2d');  
  var qmax;
   qmax = qcal(n,k,q)*1.1;
-  var myChart = new Chart(ctx, {
+  if(typeof myChart !== 'undefined' && myChart) myChart.destroy();
+  myChart = new Chart(ctx, {
     type: 'line',
     data: {
     labels: axis.slice(0,n+1),
