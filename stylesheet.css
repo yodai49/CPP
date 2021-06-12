@@ -36,6 +36,15 @@
 	margin-top:5pt;
 }
 
+.error2{
+	font-size:15pt;
+	font-family:"Times New Roman",serif;
+	position:absolute;
+	left:0%;
+	margin-left:250pt;
+	margin-top:-30pt;
+}
+
 .fontchange{
     font-family:cursive;
     font-size:60pt;

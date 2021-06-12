@@ -1,14 +1,10 @@
 #include <iostream>
 #include <iomanip>
 using namespace std;
-int main(){
+int qcal(long long n, long long k, double q){
     double comq[5050][5050]; //com[n][k]=nCk
-    int n = 25; //(n k)_qのn
-    int k = 5; //(n k)_qのk
-    double q = 1.2; //(n k)_qのq
     double powq[5050]; //qの累乗
     int p = 1000000007; //nCk modPのP  1000000007=10^9+7
-    double result;  
     comq[0][0]  = 1;
     powq[0] = 1;
     for (int i = 1; i <= k; i++){
@@ -20,6 +16,10 @@ int main(){
             comq[i][j] = (double)(comq[i-1][j-1] + powq[j] * comq[i-1][j]);
         }
     }
-    result = comq[n][k];
+    return comq[n][k];
+}
+int main(){
+    double result;
+    result = qcal(25,5,2);
     cout <<  fixed << setprecision(15) << result << endl;
 }
