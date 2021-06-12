@@ -45,6 +45,22 @@
 	margin-top:-30pt;
 }
 
+.error3{
+	font-size:15pt;
+	font-family:"Times New Roman",serif;
+	position:absolute;
+	left:0%;
+	margin-left:250pt;
+	margin-top:-80pt;
+}
+
+.scrollwindow{
+	width:40%;
+	height:10pt;
+	background-color:"#000000";
+	overflow:scroll;
+}
+
 .fontchange{
     font-family:cursive;
     font-size:60pt;
@@ -308,14 +324,17 @@ a.btn-border {
 	opacity:1;
 	transition:3s;
 	position:absolute;
-	left:45%;
+	left:47%;
 	margin-top:42pt;
-	margin-left:120pt;
 	-webkit-transition: all 2s;
 	-moz-transition: all 2s;
 	-o-transition: all 2s;
 	-ms-transition: all 2s;
 	transition: all 2s;
+	width:53%;
+	height:50pt;
+	overflow-y:scroll;
+	white-space:nowrap;
 }
 
 .notice1{

@@ -184,14 +184,19 @@ $("#visbutton").on("click",function(){ //visualize
   var n=document.getElementById(`inputn`).value;
   var k=document.getElementById(`inputk`).value;
   var q=document.getElementById(`inputq`).value;
+  var ctx = document.getElementById("chart01").getContext('2d');
   n=Number(n);
   k=Number(k);
   q=Number(q);
   k=Math.floor(n/2);
-  
-  if (isNaN(qcal(n,1,q))|| n > 100){
+  if (isNaN(qcal(n,1,q))|| n > 100){    
+    if(typeof myChart !== 'undefined' && myChart) myChart.destroy();
+    document.getElementById(`error3`).textContent=`too large or non-numeric`;    
+    document.getElementById(`error3`).animate([{opacity:`0`},{opacity:`1`}],300);
     return 0;
   }
+  document.getElementById(`error3`).animate([{opacity:`1`},{opacity:`0`}],300);
+  document.getElementById(`error3`).textContent=``;    
   var comq=[];
   var powq=[];
   var qdata=[];
@@ -223,7 +228,7 @@ $("#visbutton").on("click",function(){ //visualize
     qdata[i]=comq[n][i];
     axis[i] = i;
   }
- var ctx = document.getElementById("chart01").getContext('2d');  
+// var ctx = document.getElementById("chart01").getContext('2d');  
  var qmax;
   qmax = qcal(n,k,q)*1.1;
   if(typeof myChart !== 'undefined' && myChart) myChart.destroy();
