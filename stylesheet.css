@@ -5,6 +5,55 @@
     font-weight:100;
     font-size:30pt;
 }
+.header{
+	background: #444444;
+    display: flex;
+    padding: 20px 20px;
+	margin-top:-30pt;
+	margin-left:-15pt;
+    position: fixed;
+	z-index:500;
+    justify-content: space-between;
+    width: 100%;
+	height:23pt;
+	text-decoration:none;
+	transition:0.3s;
+	font-size:20pt;
+}
+.header.transform{
+	background:rgba(51,51,51,0.7);
+	padding:20px;
+}
+.headerfont{
+	font-family:"Times New Roman", serif;
+	text-align:center;
+}
+
+#gnav {
+	position:fixed;
+	margin-top:-20pt;
+}
+#gnav ul{
+	overflow:hidden;
+}
+#gnav li{
+	float:left;
+	width:100pt;
+	list-style:none;
+	text-decoration:none;
+}
+a:visited, a:active, a:link{
+	color:white;
+	text-decoration:none;
+	transition:0.3s;
+	text-decoration:none;
+}
+a:hover{
+	transition:0.3s;
+	color:#BBBBBB;
+	text-decoration-line:underline;
+}
+
 .padding{
     padding-left:30pt;
 	padding-top:-60pt;
@@ -51,7 +100,7 @@
 	position:absolute;
 	left:0%;
 	margin-left:250pt;
-	margin-top:-80pt;
+	margin-top:-75pt;
 }
 
 .scrollwindow{
@@ -332,9 +381,26 @@ a.btn-border {
 	-ms-transition: all 2s;
 	transition: all 2s;
 	width:53%;
-	height:50pt;
+	height:70pt;
 	overflow-y:scroll;
 	white-space:nowrap;
+}
+::-webkit-scrollbar {
+    width: 6px;
+	height:5px;
+}
+
+/*スクロールバーの軌道*/
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, .1);
+}
+
+/*スクロールバーの動く部分*/
+::-webkit-scrollbar-thumb {
+  background-color: rgb(88, 88, 88);
+  border-radius: 10px;
+  box-shadow:0 0 0 1px rgb(0, 0, 0);
 }
 
 .notice1{

@@ -323,3 +323,40 @@ $(function(){
   });
 });
 
+var _window = $(window),
+    _header = $('header'),
+    heroBottom;
+ 
+_window.on('scroll',function(){
+    heroBottom = 50;
+    if(_window.scrollTop() > heroBottom){
+        _header.addClass('transform');   
+    }
+    else{
+        _header.removeClass('transform');   
+    }
+});
+ 
+_window.trigger('scroll');
+
+window.onload = function(){
+  window.scrolltop = 0;
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const anchorLinks = document.querySelectorAll('a[href^="#"]');
+  const anchorLinksArr = Array.prototype.slice.call(anchorLinks);
+
+  anchorLinksArr.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const targetId = link.hash;
+      const targetElement = document.querySelector(targetId);
+      const targetOffsetTop = window.pageYOffset + targetElement.getBoundingClientRect().top;
+      window.scrollTo({
+        top: targetOffsetTop,
+        behavior: "smooth"
+      });
+    });
+  });
+});
