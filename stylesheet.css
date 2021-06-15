@@ -1,28 +1,39 @@
+.nomargin{
+	margin:0;
+	padding:0;
+}
+#whiteback{
+	background:#FFFFFF;
+	color:#000000;
+}
+#blackback{
+	color:#FFFFFF;
+}
+
 .title {
     color: #FFFFFF;
     position:relative;
     font-family:"Times New Roman", serif;
     font-weight:100;
     font-size:30pt;
+	padding-left:30pt;
+	padding-top:30pt;
 }
 .header{
-	background: #444444;
-    display: flex;
-    padding: 20px 20px;
-	margin-top:-30pt;
-	margin-left:-15pt;
-    position: fixed;
+	background: #FFFFFF;
+    padding: 0px 0px;
+	margin-top:-24pt;
+	position: fixed;
 	z-index:500;
     justify-content: space-between;
     width: 100%;
-	height:23pt;
+	height:50pt;
 	text-decoration:none;
 	transition:0.3s;
-	font-size:20pt;
+	font-size:14pt;
 }
 .header.transform{
-	background:rgba(51,51,51,0.7);
-	padding:20px;
+	background:rgba(255,255,255,0.7);
 }
 .headerfont{
 	font-family:"Times New Roman", serif;
@@ -30,29 +41,37 @@
 }
 
 #gnav {
-	position:fixed;
-	margin-top:-20pt;
+	position:relative;
 }
 #gnav ul{
 	overflow:hidden;
 }
 #gnav li{
 	float:left;
-	width:100pt;
+	position:relative;
+	width:120pt;
 	list-style:none;
 	text-decoration:none;
+	margin-top:5pt;
 }
-a:visited, a:active, a:link{
-	color:white;
-	transition:0.3s;
+a{
+	color:#000000;
 	text-decoration:none;
 }
 a:hover::after{
-	transition:0.3s;
-	color:#BBBBBB;
 	transform:scale(1,1);
+	height:1pt;
 }
+
 a::after{
+	position:absolute;
+	left:0pt;
+	margin-top:16pt;
+	margin-left:8pt;
+	content: '';
+	width:100pt;
+	height:1pt;
+	background:#333;
 	transform:scale(0,1);
 	transform-origin:left top;
 	transition:transform .3s;
@@ -63,16 +82,23 @@ a::after{
 }
 .acalc{
 	position:relative;
-	top:-50pt
+	top:-70pt
 }
-]
+.aabout{
+	position:relative;
+	top:0pt
+}
+.amethod{
+	position:relative;
+	top:-60pt
+}
 .padding{
-    padding-left:30pt;
+	padding-left:30pt;
 	padding-top:-60pt;
 }
 .lline{
     padding:0pt;
-    color:#FFFFFF;
+    color:#AAAAAA;
     border:none;
     border-top:solid 0.02px;
     position:relative;
@@ -80,12 +106,19 @@ a::after{
 }
 .rline{
     padding:0pt;
-    color:#FFFFFF;
+    color:#AAAAAA;
     border:none;
     border-top:solid 0.02px;
     position:absolute;
-    width:50%;
-	left:50%;
+    width:80%;
+	left:20%;
+}
+.press{
+	font-size:14pt;
+	position:absolute;
+	left:83%;
+	margin-top:10pt;
+	font-family:"Times New Roman",serif;
 }
 
 .error{
@@ -132,23 +165,25 @@ a::after{
 	position: relative;
 	width: 20%;    
     position:absolute;
-    right:0pt;
-    margin:0 30pt 0 0;
+    left:5%;
+    margin:0 0 0 0;
+	color:#FFFFFF;
 }
 
 .cp_iptxt4k {
 	position: relative;
 	width: 20%;
     position:absolute;
-    right:0pt;
-    margin:0 120pt 0 0;
+    left:28%;
+    margin:0 0 0 0;
+	color:#FFFFFF;
 }
 .cp_iptxt4q {
 	position: relative;
 	width: 20%;
     position:absolute;
-    right:0pt;
-    margin:0 210pt 0 0;
+    left:51%;
+    margin:0 0 0 0;
 }
 
 .cp_iptxt input[type='text'] {
@@ -370,7 +405,7 @@ a.btn-border {
 	opacity:1;
 	transition:3s;
 	position:absolute;
-	left:47%;
+	left:32%;
 	margin-top:42pt;
 	-webkit-transition: all 2s;
 	-moz-transition: all 2s;
@@ -385,14 +420,14 @@ a.btn-border {
 	opacity:1;
 	transition:3s;
 	position:absolute;
-	left:47%;
+	left:32%;
 	margin-top:42pt;
 	-webkit-transition: all 2s;
 	-moz-transition: all 2s;
 	-o-transition: all 2s;
 	-ms-transition: all 2s;
 	transition: all 2s;
-	width:53%;
+	width:63%;
 	height:70pt;
 	overflow-y:scroll;
 	white-space:nowrap;
@@ -437,14 +472,28 @@ a.btn-border {
 	left:5%;
 	width:40%;
 }
+.about{
+	font-family:"Times New Roman",serif;
+	font-size:55pt;
+	position:relative;
+	left:5%;
+	top:40pt;
+}
+.method{
+	font-family:"Times New Roman",serif;
+	font-size:55pt;
+	position:absolute;
+	right:5%;
+	margin-top:50pt;
+}
 
 .fade_off {
 	opacity: 0;
-	-webkit-transition: all 2s;
-	-moz-transition: all 2s;
-	-o-transition: all 2s;
-	-ms-transition: all 2s;
-	transition: all 2s;
+	-webkit-transition: all 1s;
+	-moz-transition: all 1s;
+	-o-transition: all 1s;
+	-ms-transition: all 1s;
+	transition: all 1s;
 }
 
 .transparent {
@@ -458,7 +507,7 @@ a.btn-border {
 .math{
 	font-size:30pt;
 	position:absolute;
-	right:55%;
+	right:70%;
 }
 
 #chart01{

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">    
+<html lang="en">
+    <body style="margin:0px; padding:0px">
     <head>
         <meta charset="utf-8">
         <title>q-binomial coefficient calculator</title>
@@ -9,88 +10,93 @@
         </script><!-- latex -->
         <script src="js/jquery.js"></script><!-- jquery -->
     </head>
-    <a id="top" class="atop"></a>
-    <body bgcolor = "black", text = "white">
-        <header class="header">
-            <nav id="gnav">
-                <ul class="gnav">
-                    <div class="headerfont">
-                        <li><a href="#top" id="TOP">Top</a></li>
-                        <li><a href="#calc">Calculate</a></li>
-                    </div>
-                </ul>
-            </nav>
-        </header>
-        <section class="effect-fade">
-            <h1 class="title padding">
-                <div class = "fontchange" style="display: inline-block">q</div>
-                - binomial coefficient calculator
-                <hr class="lline"></hr>
-            </h1>
-        </section>
-        <section class="effect-slide-r">
-            <div class="cp_iptxt cp_iptxt4n">
-                <input class="ef" id="inputn" type="text" placeholder="">
-                <label>n=</label>
-                <span class="focus_line"><i></i></span>
+    <header class="header">
+        <nav id="gnav">
+            <ul class="gnav">
+                <div class="headerfont">
+                    <li><a href="#top">TOP</a></li>
+                    <li><a href="#calc">VISUALIZE</a></li>
+                    <li><a href="#about">ABOUT</a></li>
+                    <li><a href="#method">METHOD</a></li>
+                    <li><a href="#simple">SIMPLE</a></li>
+                </div>
+            </ul>
+        </nav>
+    </header>
+    <div id="blackback">
+        <body bgcolor = "black", text = "white">
+            <a id="top" class="atop"></a>
+            <section class="effect-fade">
+                <h1 class="title padding">
+                    <div class = "fontchange" style="display: inline-block">q</div>
+                    - binomial coefficient calculator
+                </h1>
+            </section>
+            <section class="effect-fade">
+                <div class="cp_iptxt cp_iptxt4n">
+                    <input class="ef" id="inputn" type="text" placeholder="">
+                    <label>n=</label>
+                    <span class="focus_line"><i></i></span>
+                </div>
+                <div class="cp_iptxt cp_iptxt4k">
+                    <input class="ef" id="inputk" type="text" placeholder="">
+                    <label>k=</label>
+                    <span class="focus_line"><i></i></span>
+                </div>
+                <div class="cp_iptxt cp_iptxt4q">
+                    <input class="ef" id="inputq" type="text" placeholder="">
+                    <label>q=</label>
+                    <span class="focus_line"><i></i></span>
+                </div>
+                <br><br><br><br>
+                <hr class="rline effect-slide-r"></hr>
+                <div class="press" id="press"></div>
+            </section> 
+
+            <br><br><br><br><br>
+            <button type="button" id="calbutton" class="calbutton effect-slide-l">calculate</button>
+            <div class="error" id="error"></div>
+            <br><br><br>
+            <div class="math effect-fadeslow" style="display: inline-block">
+            \[
+            \binom{n}{k}_{q} = 
+            \]
             </div>
-            <br><br><br><br>
-            <div class="cp_iptxt cp_iptxt4k">
-                <input class="ef" id="inputk" type="text" placeholder="">
-                <label>k=</label>
-                <span class="focus_line"><i></i></span>
+            <label id="result1" class="resultlabel1">
+                
+            </label>
+            <br><br><br><br><br><br><br><br><br><br><br><br>
+            <button type="button" id="fmlbutton" class="calbutton effect-slide-l">formula</button><br><br><br>
+            <div class="error2" id="error2">
+
             </div>
-            <br><br><br><br>
-            <div class="cp_iptxt cp_iptxt4q">
-                <input class="ef" id="inputq" type="text" placeholder="">
-                <label>q=</label>
-                <span class="focus_line"><i></i></span>
+            <div class="math effect-fadeslow" style="display: inline-block">
+            \[
+            \binom{n}{k}_{q} = 
+            \]
             </div>
-            <br><br><br><br>
-            <hr class="rline"></hr>
-        </section> 
+            <label id="result2" class="resultlabel2">
+                
+            </label>
+            <br><br><br><br><br><br><br><br><br><br><br><br>
+            <a id="calc" class="acalc"></a>
+            <button type="button" id="visbutton" class="calbutton effect-slide-l">visualize</button><br><br><br><br><br><br>
+            <div class="error3" id="error3">
 
-        <br><br><br><br><br>
-        <a id="calc" class="acalc"></a>
-        <button type="button" id="calbutton" class="calbutton effect-slide-l">calculate</button>
-        <div class="error" id="error">
-
-        </div>
-        <br><br><br>
-        <div class="math effect-fadeslow" style="display: inline-block">
-        \[
-        \binom{n}{k}_{q} = 
-        \]
-        </div>
-        <label id="result1" class="resultlabel1">
-            
-        </label>
-        <br><br><br><br><br><br><br><br><br><br>
-        <button type="button" id="fmlbutton" class="calbutton effect-slide-l">formula</button><br><br><br>
-        <div class="error2" id="error2">
-
-        </div>
-        <div class="math effect-fadeslow" style="display: inline-block">
-        \[
-        \binom{n}{k}_{q} = 
-        \]
-        </div>
-        <label id="result2" class="resultlabel2">
-            
-        </label>
-        <br><br><br><br><br><br><br><br><br><br>
-        <button type="button" id="visbutton" class="calbutton effect-slide-l">visualize</button><br><br><br><br><br><br>
-        <div class="error3" id="error3">
-
-        </div>
-
-        <div class="wrap-chart">
-            <div class="chart-container" style="position: relative; width: 100%;height:400pt">
-                <canvas id="chart01"></canvas>            
             </div>
-        </div>
 
-        <br><br><br><br><br><br>
+            <div class="wrap-chart">
+                <div class="chart-container" style="position: relative; width: 100%;height:400pt">
+                    <canvas id="chart01"></canvas>            
+                </div>
+            </div>
+            <br><br><br><br><br><br>
+        </body>
+    </div>
+    <div id="whiteback">
+        <a id="about" class="aabout"></a>
+        <div class="about">about</div>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br>
         <div class="notice1 fade_off" id ="notice1">
             This calculator is developed by yodai suzuki.It enables to calculate the value of q-binomial coefficient.
         </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -100,9 +106,21 @@
         <div class="notice3 fade_off" id="notice3">
             This web page provides the value of q-binomial coefficient using the equality "nCk_q=q^(n-k)*(n-1)C(k-1)_q+nC(k-1)"
         </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-        <script src="smoothscroll.js"></script><!-- polyfillファイル -->
-        <script type="text/javascript" src="script.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
-    </body>
+    </div>
+    <div id="blackback">
+        <a id="method" class="amethod"></a>
+        <div class="method">method</div>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br>
+        We applied...
+        <br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="smoothscroll.js"></script><!-- polyfillファイル -->
+    <script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
+</body>
 </html>

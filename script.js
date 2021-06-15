@@ -5,13 +5,13 @@ function qcal(n,k,q){
   var powq=[];
   var result;
   //start of error check
-  if (isNaN(n)|| isNaN(k)|| isNaN(q))    return "N, k, q must be numeric"; //Is numeric?
+  if (isNaN(n)|| isNaN(k)|| isNaN(q)) return "N, k, q must be numeric"; //Is numeric?
   if (n <= 0) return "N must be larger than zero";//0 <= n?
+  if (n != Math.floor(n) || k != Math.floor(k)) return "N, k must be integer";
   if (n < k|| k < 0) return "0"; //0 <= k <= n?
   if (k == 0 || n == k) return "1"; // k == 0 or k == n?
   if (n < k*2) k = n-k; //Is k larger than n/2?
-  if (q == 0) return "1"; //Is q equal to zero?
-  if (n * k > 100000000) return "too large";
+  if (n * k > 10000000) return "too large";
   //end of error check
   powq[0]=1;
   for(var i = 1; i <= k;i++){
@@ -38,6 +38,41 @@ function qcal(n,k,q){
   return result;
 }
 
+$("#inputn").on("change",function(){
+  $("#calbutton").trigger("click");
+  $("#fmlbutton").trigger("click");
+  $("#visbutton").trigger("click");
+  document.getElementById(`press`).animate([{opacity:`1`},{opacity:`0`}],300);
+  document.getElementById(`press`).textContent=``;
+})
+$("#inputk").on("change",function(){
+  $("#calbutton").trigger("click");
+  $("#fmlbutton").trigger("click");
+  $("#visbutton").trigger("click");
+  document.getElementById(`press`).animate([{opacity:`1`},{opacity:`0`}],300);
+  document.getElementById(`press`).textContent=``;
+})
+$("#inputq").on("change",function(){
+  $("#calbutton").trigger("click");
+  $("#fmlbutton").trigger("click");
+  $("#visbutton").trigger("click");
+  document.getElementById(`press`).animate([{opacity:`1`},{opacity:`0`}],300);
+  document.getElementById(`press`).textContent=``;
+})
+$("#inputn").on("input",function(){
+  document.getElementById(`press`).textContent=`press enter to calculate`;
+  document.getElementById(`press`).animate([{opacity:`0`},{opacity:`1`}],300);
+})
+$("#inputk").on("input",function(){
+  document.getElementById(`press`).textContent=`press enter to calculate`;
+  document.getElementById(`press`).animate([{opacity:`0`},{opacity:`1`}],300);
+})
+$("#inputq").on("input",function(){
+  document.getElementById(`press`).textContent=`press enter to calculate`;
+  document.getElementById(`press`).animate([{opacity:`0`},{opacity:`1`}],300);
+})
+
+
 $("#calbutton").on("click",function(){
   var n=document.getElementById(`inputn`).value;
   var k=document.getElementById(`inputk`).value;
@@ -46,7 +81,7 @@ $("#calbutton").on("click",function(){
   k=Number(k);
   q=Number(q);
   var sum =qcal(n,k,q);
-  if (isNaN(sum)){
+  if (isNaN(sum)!=0){
     document.getElementById(`result1`).textContent=``;
     document.getElementById(`error`).textContent=sum;    
     document.getElementById(`result1`).animate([{opacity:`1`},{opacity:`0`}],300);
@@ -67,7 +102,7 @@ $("#fmlbutton").on("click",function(){
   k=Number(k);
   q=Number(q);
   sum=qcal(n,k,q);//error check
-  if (isNaN(sum)){
+  if (isNaN(sum)!=0){
     document.getElementById(`result2`).textContent=``;
     document.getElementById(`error2`).textContent=sum;    
     document.getElementById(`result2`).animate([{opacity:`1`},{opacity:`0`}],300);
@@ -150,9 +185,9 @@ $("#fmlbutton").on("click",function(){
   for (var i = 0; i <= deg; i++){
     if (i == 0){
       if (x[i] != 1){
-        res = x[i] + "q^" + i + " ";
+        res =res +  x[i] + "q^" + i + " ";
       }else {
-        res="q^" + i + " "; 
+        res=res + "q^" + i + " "; 
       }
     } else{
       if (x[i] != 1){
@@ -189,7 +224,7 @@ $("#visbutton").on("click",function(){ //visualize
   k=Number(k);
   q=Number(q);
   k=Math.floor(n/2);
-  if (isNaN(qcal(n,1,q))|| n > 100){    
+  if (isNaN(qcal(n,1,q))|| n > 100 || isNaN(qcal(n,k,q))){    
     if(typeof myChart !== 'undefined' && myChart) myChart.destroy();
     document.getElementById(`error3`).textContent=`too large or non-numeric`;    
     document.getElementById(`error3`).animate([{opacity:`0`},{opacity:`1`}],300);
