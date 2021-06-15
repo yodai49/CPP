@@ -44,16 +44,28 @@
 }
 a:visited, a:active, a:link{
 	color:white;
-	text-decoration:none;
 	transition:0.3s;
 	text-decoration:none;
 }
-a:hover{
+a:hover::after{
 	transition:0.3s;
 	color:#BBBBBB;
-	text-decoration-line:underline;
+	transform:scale(1,1);
 }
-
+a::after{
+	transform:scale(0,1);
+	transform-origin:left top;
+	transition:transform .3s;
+}
+.atop{
+	position:relative;
+	top:-50pt;
+}
+.acalc{
+	position:relative;
+	top:-50pt
+}
+]
 .padding{
     padding-left:30pt;
 	padding-top:-60pt;
