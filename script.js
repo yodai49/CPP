@@ -1,9 +1,15 @@
 var myChart;
-
+var timeoutflg;
+var timer;
+function timeout(){
+  timeoutflg=1;
+  clearTimeout(timer);
+}
 function qcal(n,k,q){
   var comq=[];
   var powq=[];
   var result;
+  timeoutflg=0;
   //start of error check
   if (isNaN(n)|| isNaN(k)|| isNaN(q)) return "N, k, q must be numeric"; //Is numeric?
   if (n <= 0) return "N must be larger than zero";//0 <= n?
@@ -12,6 +18,7 @@ function qcal(n,k,q){
   if (k == 0 || n == k) return "1"; // k == 0 or k == n?
   if (n < k*2) k = n-k; //Is k larger than n/2?
   if (n * k > 10000000) return "too large";
+  timer=setTimeout('timeout()',1000);
   //end of error check
   powq[0]=1;
   for(var i = 1; i <= k;i++){
@@ -26,6 +33,10 @@ function qcal(n,k,q){
   comq[0][0]=1;
   for(var i = 1;i <= n; i++){
     comq[i][0]=1;
+    if (timeoutflg == 1) {
+      clearTimeout(timer);
+      return "time out";
+    }
     for(var j = 1;j<=k;j++){
       comq[i][j]=comq[i-1][j-1]+powq[j]*comq[i-1][j];
       if (!isFinite(comq[i][j])){
@@ -34,6 +45,7 @@ function qcal(n,k,q){
       } 
     }
   }
+  clearTimeout(timer);
   result=comq[n][k];
   return result;
 }
@@ -101,118 +113,82 @@ $("#fmlbutton").on("click",function(){
   n=Number(n);
   k=Number(k);
   q=Number(q);
-  sum=qcal(n,k,q);//error check
-  if (isNaN(sum)!=0){
+  sum=qcal(n,k,0);//error check
+  if (isNaN(sum)){
     document.getElementById(`result2`).textContent=``;
     document.getElementById(`error2`).textContent=sum;    
     document.getElementById(`result2`).animate([{opacity:`1`},{opacity:`0`}],300);
     document.getElementById(`error2`).animate([{opacity:`0`},{opacity:`1`}],300);
     return 0;
   }
-
-  var deg = n * k-k*k;//degree of polynomial - 1
-  var a=[]; //Matrix A
-  var b=[]; // Vector B
-  var l=[];//Matrix L
-  var u=[];//Matrix U
-  var tempsum;
-  var sampleq=[]; //sample of q value
-  var y=[];
-  var x=[];
-  var err=0; //0 no error  1 might be an error  2 must be an error
-
-  for (var i = 0; i <= deg; i++){
-      if (i % 2){
-          sampleq[i] = -(i+1)/2;
-      } else {
-          sampleq[i] = i/2+1;
-      }
-      sampleq[i] /= 10;
-  }
-  for (var i = 0; i <= deg; i++){
-      a[i] = [];
-      a[i][0] = 1;
-      for (var j = 1; j <= deg; j++){
-          a[i][j] = a[i][j-1]*sampleq[i];
-      }
-      b[i] = qcal(n,k,sampleq[i]);
-  }
-  //LU dec
-  for (var i = 0; i <= deg; i++){
-    l[i] = [];
-    u[i] = [];
-  }
-  l[0][0] = 1;
-  for (var i = 0; i <= deg ;i++){
-      for (var j = i; j <= deg; j++){ //loop of U
-          tempsum = 0;
-          for (var k = 0;k < i;k++) tempsum+=u[k][j]*l[i][k];
-          u[i][j] = a[i][j]-tempsum;
-      }
-      l[i][i] = 1;
-      for (var j = (i+1); j <= deg; j++){ //loop of L
-          tempsum=0;
-          for (var k = 0; k < i;k++) tempsum += u[k][i]*l[j][k];
-          l[j][i] = (a[j][i]-tempsum) / u[i][i];
-      }
-  }
-  for (var i = 0; i <= deg; i++){
-      tempsum = 0;
-      for (var j = 0; j <i;j++){
-          tempsum += l[i][j] * y[j];
-      }
-      y[i] = b[i]-tempsum;
-  }
-  for (var i = 0; i <= deg; i++){
-      tempsum = 0;
-      for (var j = 0; j <i;j++){
-          tempsum += l[i][j] * y[j];
-      }
-      y[i] = b[i]-tempsum;
-  }
-  for (var i = deg; i >= 0; i--){
-      tempsum = 0;
-      for (var j = i+1; j <= deg; j++){
-          tempsum += u[i][j] * x[j];
-      }
-      x[i] = (y[i] - tempsum) / u[i][i];
-      if ((x[i] - Math.floor(x[i]) > 0.1) && (Math.ceil(x[i]) - x[i] > 0.1)) err = 1;
-      x[i] = Math.round(x[i]);
-  }
-  if (x[0] != 1) err = 2;
-  var res;
-  res = "";
-  for (var i = 0; i <= deg; i++){
-    if (i == 0){
-      if (x[i] != 1){
-        res =res +  x[i] + "q^" + i + " ";
-      }else {
-        res=res + "q^" + i + " "; 
-      }
-    } else{
-      if (x[i] != 1){
-        res = res + "+ "+ x[i] + "q^" + i + " ";
-      } else{
-        res = res + "+ q^" + i + " ";
-      }
-    }
-  }
-  if (err == 0){
-    document.getElementById(`result2`).textContent=res;
-    document.getElementById(`result2`).animate([{opacity:`0`},{opacity:`1`}],300);
-    document.getElementById(`error2`).animate([{opacity:`1`},{opacity:`0`}],300);
-    document.getElementById(`error2`).textContent=``;    
-  } else if(err == 1){
-    document.getElementById(`error2`).textContent=`The result might be an error`;    
-    document.getElementById(`error2`).animate([{opacity:`0`},{opacity:`1`}],300);
-    document.getElementById(`result2`).textContent=res;
-    document.getElementById(`result2`).animate([{opacity:`0`},{opacity:`1`}],300);
-  } else if (err == 2){
+  if (k*k*(n-k)*(n-k) > 100000000){
     document.getElementById(`result2`).textContent=``;
     document.getElementById(`error2`).textContent=`too large`;    
     document.getElementById(`result2`).animate([{opacity:`1`},{opacity:`0`}],300);
     document.getElementById(`error2`).animate([{opacity:`0`},{opacity:`1`}],300);
+    return 0;
   }
+  var deg = n*k - k*k + 1;//degree of polynomial
+  var dp=[]; //dp[i][j][l] i列用いて、合計のブロック数がjで、最左列がl段であるものの個数
+  var sum=[];//sum[j][l] dp[i][j][0]からdp[i][j][l]までの和 合計のブロック数がjで最左列がl以下のものの総数
+  for (var i = 1;i <= (n-k);i++){
+    dp[i] = [];
+    for (var j = 0; j < deg;j++){
+      dp[i][j] = [];
+      for (var l = 0;l <= k;l++){
+        if(i == 1){
+          if ((j == l) && (j != -1)){
+            dp[i][j][l] = 1;
+          } else{
+            dp[i][j][l] = 0;
+          }
+        } else {
+          if (j > l){
+            dp[i][j][l] = sum[j-l][l];
+          } else{
+            dp[i][j][l] = 0;
+          }
+        }
+      }
+    }
+    for (var j = 0; j < deg; j++){
+      sum[j]=[];
+      for (var l = 0; l<=k; l++){
+        if (l == 0){
+          sum[j][l] = dp[i][j][l];
+        } else{
+          sum[j][l] = sum[j][l-1]+dp[i][j][l];
+        }
+      }
+    }
+  }
+
+  var res = "";
+  for (var i = 0; i < deg;i++){
+    var tempsum=0;
+    for (var j = 1; j <= (n-k);j++){
+      for(var l = 0; l <= k;l++){
+        tempsum+=dp[j][i][l];
+      }
+    }
+    if (i != (deg - 1)){
+      if (tempsum != 1){
+        res += tempsum + "q^" + i + " + ";
+      } else {
+        res +=  "q^" + i + " + ";
+      }
+    } else{
+      if (tempsum != 1){
+        res += tempsum + "q^" + i ;
+      } else {
+        res +=  "q^" + i;
+      }
+    }
+  }
+    document.getElementById(`result2`).textContent=res;
+    document.getElementById(`result2`).animate([{opacity:`0`},{opacity:`1`}],300);
+    document.getElementById(`error2`).animate([{opacity:`1`},{opacity:`0`}],300);
+    document.getElementById(`error2`).textContent=``;    
 })
 
 $("#visbutton").on("click",function(){ //visualize
@@ -311,6 +287,12 @@ $("#visbutton").on("click",function(){ //visualize
 myChart.update();
 })
 
+$("#copybutton").on("click",function(){
+  var copytarget = document.getElementById(`result2`);
+  copytarget.select();
+  document.execCommand("Copy");
+})
+
 $(function(){
   $(window).scroll(function (){
     $("#notice1").each(function(){
@@ -358,6 +340,35 @@ $(function(){
   });
 });
 
+$(function(){
+  $(window).scroll(function (){
+    $("#aboutline").each(function(){
+      var imgPos = $(this).offset().top;
+      var scroll = $(window).scrollTop();
+      var windowHeight = $(window).height();
+      if (scroll > imgPos - windowHeight + windowHeight/5){
+        $(this).addClass("effect-slide-r");
+      } else {
+        $(this).removeClass("effect-slide-r");
+      }
+    });
+  });
+});
+$(function(){
+  $(window).scroll(function (){
+    $("#methodline").each(function(){
+      var imgPos = $(this).offset().top;
+      var scroll = $(window).scrollTop();
+      var windowHeight = $(window).height();
+      if (scroll > imgPos - windowHeight + windowHeight/5){
+        $(this).addClass("effect-slide-l");
+      } else {
+        $(this).removeClass("effect-slide-l");
+      }
+    });
+  });
+});
+
 var _window = $(window),
     _header = $('header'),
     heroBottom;
@@ -395,3 +406,108 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+
+/* an old method of formula calculation
+  var deg = n * k-k*k;//degree of polynomial - 1
+  var a=[]; //Matrix A
+  var b=[]; // Vector B
+  var l=[];//Matrix L
+  var u=[];//Matrix U
+  var tempsum;
+  var sampleq=[]; //sample of q value
+  var y=[];
+  var x=[];
+  var err=0; //0 no error  1 might be an error  2 must be an error
+  for (var i = 0; i <= deg; i++){
+      if (i % 2){
+          sampleq[i] = -(i+1)/2;
+      } else {
+          sampleq[i] = i/2+1;
+      }
+      sampleq[i] /= 10;
+  }
+  for (var i = 0; i <= deg; i++){
+      a[i] = [];
+      a[i][0] = 1;
+      for (var j = 1; j <= deg; j++){
+          a[i][j] = a[i][j-1]*sampleq[i];
+      }
+      b[i] = qcal(n,k,sampleq[i]);
+  }
+  //LU dec
+  for (var i = 0; i <= deg; i++){
+    l[i] = [];
+    u[i] = [];
+  }
+  l[0][0] = 1;
+  for (var i = 0; i <= deg ;i++){
+      for (var j = i; j <= deg; j++){ //loop of U
+          tempsum = 0;
+          for (var k = 0;k < i;k++) tempsum+=u[k][j]*l[i][k];
+          u[i][j] = a[i][j]-tempsum;
+      }
+      l[i][i] = 1;
+      for (var j = (i+1); j <= deg; j++){ //loop of L
+          tempsum=0;
+          for (var k = 0; k < i;k++) tempsum += u[k][i]*l[j][k];
+          l[j][i] = (a[j][i]-tempsum) / u[i][i];
+      }
+  }
+  for (var i = 0; i <= deg; i++){
+      tempsum = 0;
+      for (var j = 0; j <i;j++){
+          tempsum += l[i][j] * y[j];
+      }
+      y[i] = b[i]-tempsum;
+  }
+  for (var i = 0; i <= deg; i++){
+      tempsum = 0;
+      for (var j = 0; j <i;j++){
+          tempsum += l[i][j] * y[j];
+      }
+      y[i] = b[i]-tempsum;
+  }
+  for (var i = deg; i >= 0; i--){
+      tempsum = 0;
+      for (var j = i+1; j <= deg; j++){
+          tempsum += u[i][j] * x[j];
+      }
+      x[i] = (y[i] - tempsum) / u[i][i];
+      if ((x[i] - Math.floor(x[i]) > 0.1) && (Math.ceil(x[i]) - x[i] > 0.1)) err = 1;
+      x[i] = Math.round(x[i]);
+  }
+  if (x[0] != 1) err = 2;
+  var res;
+  res = "";
+  for (var i = 0; i <= deg; i++){
+    if (i == 0){
+      if (x[i] != 1){
+        res =res +  x[i] + "q^" + i + " ";
+      }else {
+        res=res + "q^" + i + " "; 
+      }
+    } else{
+      if (x[i] != 1){
+        res = res + "+ "+ x[i] + "q^" + i + " ";
+      } else{
+        res = res + "+ q^" + i + " ";
+      }
+    }
+  }
+  if (err == 0){
+    document.getElementById(`result2`).textContent=res;
+    document.getElementById(`result2`).animate([{opacity:`0`},{opacity:`1`}],300);
+    document.getElementById(`error2`).animate([{opacity:`1`},{opacity:`0`}],300);
+    document.getElementById(`error2`).textContent=``;    
+  } else if(err == 1){
+    document.getElementById(`error2`).textContent=`The result might be an error`;    
+    document.getElementById(`error2`).animate([{opacity:`0`},{opacity:`1`}],300);
+    document.getElementById(`result2`).textContent=res;
+    document.getElementById(`result2`).animate([{opacity:`0`},{opacity:`1`}],300);
+  } else if (err == 2){
+    document.getElementById(`result2`).textContent=``;
+    document.getElementById(`error2`).textContent=`too large`;    
+    document.getElementById(`result2`).animate([{opacity:`1`},{opacity:`0`}],300);
+    document.getElementById(`error2`).animate([{opacity:`0`},{opacity:`1`}],300);
+  } */

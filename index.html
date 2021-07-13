@@ -70,14 +70,15 @@
             <div class="error2" id="error2">
 
             </div>
+            <button type="button" id="copybutton" class="copybutton effect-fade">copy</button>
             <div class="math effect-fadeslow" style="display: inline-block">
             \[
             \binom{n}{k}_{q} = 
             \]
             </div>
-            <label id="result2" class="resultlabel2">
+            <textarea id="result2" type="text" class="resultlabel2" readonly>
                 
-            </label>
+            </textarea>
             <br><br><br><br><br><br><br><br><br><br><br><br>
             <a id="calc" class="acalc"></a>
             <button type="button" id="visbutton" class="calbutton effect-slide-l">visualize</button><br><br><br><br><br><br>
@@ -95,31 +96,87 @@
     </div>
     <div id="whiteback">
         <a id="about" class="aabout"></a>
-        <div class="about">about</div>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <div class="about">About</div><br><br><br><br><br><br><br>
+        <hr class="aboutline" id="aboutline"></hr>
+        <br><br><br><br><br><br><br><br><br>
         <div class="notice1 fade_off" id ="notice1">
-            This calculator is developed by yodai suzuki.It enables to calculate the value of q-binomial coefficient.
-        </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            This calculator is developed by Yodai Suzuki. 
+            It enables calculations of q-binomial coefficients or polynomials in q that give values of q-binomial coefficients. 
+            It also enables visualization of “q-binomial distribution”. 
+            It uses the algorithm which calculates q-binomial coefficients with time complexity O(n^2), and calculates polynomials with time complexity O(k^2(n-k)^2).
+        </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
         <div class="notice2 fade_off" id="notice2">
-            Q-binomial coefficient is also called "Gaussian binomial coefficient".It is q-analogue of binomial coefficient.
+            The q-binomial coefficient is also called “Gaussian binomial coefficient”. 
+            They are q-analogs of the binomial coefficients. A q-analog is a kind of generalizations which introduce new parameter “q” to some mathematical objects. 
+            In a q-analog, q-extended-objects must be the same as the original objects in the limit as q→1. For example, q-number([n]q) is defined by the following equation.
+            \[
+            [n]_{q}=\frac{1-q^{n}}{1-q}
+            \]
+            The q-factorial and the q-binomial coefficient are defined by the following equation.
+            \[
+            [n]!_{q}=\prod_{k=1}^{n} [k]_{q}
+            \\
+            \binom{n}{k}_{q} = \frac{[n]!_{q}}{[k]!_{q}[n-k]!_{q}}
+            \]
         </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
         <div class="notice3 fade_off" id="notice3">
-            This web page provides the value of q-binomial coefficient using the equality "nCk_q=q^(n-k)*(n-1)C(k-1)_q+nC(k-1)"
+            There are many interpretations of the q-binomial coefficient. 
+            The most typical one is understanding the q-binomial coefficient as the number of k-dimensional subspaces of the n-dimensional vector space over the q-element field. 
+            It is also important that the coefficient of the polynomial which corresponds to q^i is equal to the number of “(n-k)*k staircase” patterns which contain i blocks. 
+            See “Method” for a detailed explanation.
         </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     </div>
     <div id="blackback">
+        <div class="method">Method</div><br><br><br><br><br><br><br><br>
         <a id="method" class="amethod"></a>
-        <div class="method">method</div>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br>
-        We applied...
-        <br><br><br><br><br><br><br><br><br><br><br><br><br>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <hr class="methodline" id="methodline"></hr>
+        <br><br><br>
+        <div class="explanation1">
+            1. The value of the q-binomial coefficient
+        </div><br><br><br><br>
+        <div class="explanation2">
+            Here is the well-known equation of binomial coefficients.
+            \[
+            \binom{n}{k}=\binom{n-1}{k}+\binom{n-1}{k-1} \ \ \ \ \ ......(1)
+            \]
+            The following equation which is similar to (1) is true.
+            \[
+            \binom{n}{k}_{q}=q^{k}\binom{n-1}{k}+\binom{n-1}{k-1} \ \ \ \ \ ......(2)
+            \]
+            <div class="mathmargin2">(proof)<br></div>
+            <div class="mathmargin">
+                \[
+                {
+                    q^{k}\binom{n-1}{k}+\binom{n-1}{k-1} \\
+                    = q^{k}\frac{[(n-1)]!_{q}}{[k]!_{q}[n-k-1]!_{q}} + \frac{[(n-1)]!_{q}}{[k-1]!_{q}[n-k]!_{q}} \\
+                    = \frac{[(n-1)]!_{q}}{[k]!_{q}[n-k]!_{q}} \left( q^{k}[n-k]_{q}+[k]_{q} \right) \\
+                    = \frac{[(n-1)]!_{q}}{[k]!_{q}[n-k]!_{q}} \left( q^{k}\frac{1-q^{n-k}}{1-q} + \frac{1-q^{k}}{1-q} \right) \\
+                    = \frac{[(n-1)]!_{q}}{[k]!_{q}[n-k]!_{q}} \left( \frac{1-q^{k}+q^{k}-q^{n}}{1-q} \right) \\
+                    = \frac{[(n-1)]!_{q}}{[k]!_{q}[n-k]!_{q}} \left( \frac{1-q^{n}}{1-q} \right) \\
+                    = \frac{[n]_{q}[n-1]!_{q}}{[k]!_{q}[n-k]!_{q}} \\
+                    = \frac{[n]!_{q}}{[k]!_{q}[n-k]!_{q}} \\
+                    = \binom{n}{k}_{q} \ \ \ \ \  \ \ \ \ \  \ \ \ \ \ (Q.E.D.)
+                }
+                \]
+            </div>
+            This calculator calculates the value of the q-binomial coefficient by using the equation (2). 
+            At first, it calculates the value of q^i and save it in powq[i] variable. 
+            Next, it generates the two-dimensionally array named comq[i][j] and initializes comq[i][0] to 1. 
+            By using the value of powq, it calculates the value of “comq[i-1][j-1]+powq[j]*comq[i-1][j]”, and this value is exactly equal to comq[i][j]. 
+            By using preceding algorithm, it is possible to calculate the value of the q-binomial coefficient with time complexity O(n^2).
+        </div>
+        <div class="explanation1"> <br><br><br>
+            2. The polynomial of the q-binomial coefficient
+        </div><br><br><br>
+        <div class="explanation2">
+            It is well-known that ...(WIP)
+        </div> 
         <br><br><br><br><br><br><br><br><br><br><br><br><br>
         <br><br><br><br><br><br><br><br><br><br><br><br><br>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="smoothscroll.js"></script><!-- polyfillファイル -->
+    <script src="smoothscroll.js"></script>
     <script type="text/javascript" src="script.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
 </body>
