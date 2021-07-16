@@ -562,17 +562,7 @@ a.btn-border {
 	height:5px;
 	left:65%;
 }
-.aboutline::after{
-	display:block;
-	background:#FFFFFF;
-	color:#FFFFFF;
-	content:"$";
-	margin-top:-5pt;
-	position:relative;
-	transform:rotate(-60deg);
-	width:30pt;
-	height:50pt;
-}
+
 .method{
 	font-family:"Times New Roman",serif;
 	font-size:55pt;
@@ -590,18 +580,7 @@ a.btn-border {
 	height:5px;
 	left:0%;
 }
-.methodline::after{
-	display:block;
-	background:#000000;
-	color:#000000;
-	content:"$";
-	margin-top:-12pt;
-	margin-left:95%;
-	position:relative;
-	transform:rotate(50deg);
-	width:30pt;
-	height:50pt;
-}
+
 .fade_off {
 	opacity: 0;
 	-webkit-transition: all 1s;
