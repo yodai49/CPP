@@ -14,7 +14,7 @@
         <nav id="gnav">
             <ul class="gnav">
                 <div class="headerfont">
-                    <li><a href="#top">TOP</a></li>
+                    <li><a href="#top"><div class="fontchange" style="display: inline-block">q</div>-b.c. Calculator</a></li>
                     <li><a href="#calc">VISUALIZE</a></li>
                     <li><a href="#about">ABOUT</a></li>
                     <li><a href="#method">METHOD</a></li>
@@ -28,8 +28,6 @@
             <a id="top" class="atop"></a>
             <section class="effect-fade">
                 <h1 class="title padding">
-                    <div class = "fontchange" style="display: inline-block">q</div>
-                    - binomial coefficient calculator
                 </h1>
             </section>
             <section class="effect-fade">
@@ -102,13 +100,13 @@
         <div class="notice1 fade_off" id ="notice1">
             This calculator is developed by Yodai Suzuki. 
             It enables calculations of q-binomial coefficients or polynomials in q that give values of q-binomial coefficients. 
-            It also enables visualization of “q-binomial distribution”. 
+            It also enables a visualization of “q-binomial distribution”. 
             It uses the algorithm which calculates q-binomial coefficients with time complexity O(n^2), and calculates polynomials with time complexity O(k^2(n-k)^2).
-        </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        </div><br><br><br><br>
         <div class="notice2 fade_off" id="notice2">
             The q-binomial coefficient is also called “Gaussian binomial coefficient”. 
             They are q-analogs of the binomial coefficients. A q-analog is a kind of generalizations which introduce new parameter “q” to some mathematical objects. 
-            In a q-analog, q-extended-objects must be the same as the original objects in the limit as q→1. For example, q-number([n]q) is defined by the following equation.
+            In a q-analog, q-extended-objects must be the same as the original objects in the limit as q→1. For example, q-number([n]<sub>q</sub>) is defined by the following equation.
             \[
             [n]_{q}=\frac{1-q^{n}}{1-q}
             \]
@@ -118,14 +116,13 @@
             \\
             \binom{n}{k}_{q} = \frac{[n]!_{q}}{[k]!_{q}[n-k]!_{q}}
             \]
-        </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        </div><br><br><br><br><br>
         <div class="notice3 fade_off" id="notice3">
             There are many interpretations of the q-binomial coefficient. 
             The most typical one is understanding the q-binomial coefficient as the number of k-dimensional subspaces of the n-dimensional vector space over the q-element field. 
-            It is also important that the coefficient of the polynomial which corresponds to q^i is equal to the number of “(n-k)*k staircase” patterns which contain i blocks. 
+            It is also important that the coefficient of the polynomial which corresponds to q<sup>i</sup> is equal to the number of “(n-k)*k Young diagram" patterns which contain i blocks. 
             See “Method” for a detailed explanation.
-        </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        </div><br><br><br><br><br>
     </div>
     <div id="blackback">
         <div class="method">Method</div><br><br><br><br><br><br><br><br>
@@ -161,19 +158,84 @@
                 \]
             </div>
             This calculator calculates the value of the q-binomial coefficient by using the equation (2). 
-            At first, it calculates the value of q^i and save it in powq[i] variable. 
+            At first, it calculates the value of q<sup>i</sup> and save it in powq[i] variable. 
             Next, it generates the two-dimensionally array named comq[i][j] and initializes comq[i][0] to 1. 
             By using the value of powq, it calculates the value of “comq[i-1][j-1]+powq[j]*comq[i-1][j]”, and this value is exactly equal to comq[i][j]. 
-            By using preceding algorithm, it is possible to calculate the value of the q-binomial coefficient with time complexity O(n^2).
+            By using the preceding algorithm, it is possible to calculate the value of the q-binomial coefficient with time complexity O(n^2).
         </div>
         <div class="explanation1"> <br><br><br>
             2. The polynomial of the q-binomial coefficient
         </div><br><br><br>
         <div class="explanation2">
-            It is well-known that ...(WIP)
-        </div> 
-        <br><br><br><br><br><br><br><br><br><br><br><br><br>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br>
+            Before the calculation of the polynomial, consider the S(n,k) which is “staircase”. It suffices the following proposition. Let P(i,j) be a element of the S(n,k).<br>
+            1.	S(n,k) is a set which contains lattice points.<br>
+            2.	Both i and j suffice 1<=i<=(n-k) and 1<=j<=k.<br>
+            3.	S(i-1,j) is a element of the S(n,k). (i>=2)<br>
+            4.	The number of elements which suffice j=J is larger than or equal to that of elements which suffice j=J+1. <br><br>
+            Let n be 12, and k be 5. The following diagram (1) is the example of the S(n,k). <br><br>
+            <img src="diagram1.png" alt="diagram1" class="diagram1">
+            <img src="diagram2.png" alt="diagram2" class ="diagram2"><br><br>
+            If we substitute boxes for points, this diagram will be easier to understand(diagram (2)). It exactly seems a “staircase”. This is also called “Young diagram”.<br><br>
+            Let C(n,k,i) be the patterns of the S(n,k) which contains i boxes or points. 
+            And let Q(n,k,i) be the coefficient of (n k)q which corresponds to the q<sup>i</sup>. 
+            C(n,k,i) is equal to Q(n,k,i). This fact is very important and useful when we calculates the polynomial of the q-binomial coefficient.
+            <br><br><br>
+            <div class="mathmargin2">(proof)<br></div>
+            <div class="mathmargin">
+                    When n is equal to 1, let the number of the staircases which contains 0 blocks be 1.
+                    The number of those which contains 1 blocks is 1. 
+                    These correspondent to the value of (1 0)<sub>q</sub> and (1 1)<sub>q</sub>.
+                    Remark recurrence relations of C(n,k,i) and Q(n,k,i).
+                    It is obvious from (2) that Q(n,k,i) suffices the following equation (3).
+                    \[
+                    {
+                    Q(n,k,i) = \\
+                    \ \ Q(n-1, k, i-k)+Q(n-1, k-1, i) \ \ \  (i>=k) \ \ \ ……(3)     \\
+                    \ \ Q(n-1,k-1,i)\ \ \ (i < k) \ \ \ \ \ \ \                 
+                    }
+                    \]
+                    Following considerations about C(n,k,i) are true.<br>
+                    1.	Staircases can be classified into two groups according to whether they contain (1,k) or not.<br>
+                    2.	The number of the staircases which contain (1,k) is equal to the number of those which delete one column and reduce k blocks. <br>
+                    3.	The number of the those which doesn’t contain (1,k) is equal to the number of those which delete one row.<br>
+                    The following equation holds because of considerations 2 and 3.<br>
+                    \[
+                    {
+                        C(n,k,i)= \\
+                        \ \ C(n-1,k,i-k)+C(n-1,k-1,i)\ \ \ (i>=k) \\
+                        \ \ C(n-1,k-1,i)\ \ \ (i < k)
+                    }
+                    \]
+                    Q(n,k,i) and C(n,k,i) suffice the same reccurence relation. Therefore, Q(n,k,i) is equal to C(n,k,i). 
+                    \[
+                    {
+                        \ \ \ \ \ \ \ \ \ \  \ \ \ \ \ (Q.E.D.)
+                    }
+                    \]
+            </div><br>
+            This calculator uses this fact when it calculates Q(n,k,i). 
+            It counts the number of the staircases which corresponds n, k and i
+            (It is possible to calculates the value of Q(n,k,i) by using the equation (3), but it is more intuitive to correspond the number of the staircases.).
+            <br><br>
+            At first, it prepares a three-dimensional array dp[n-k][i][k].
+            The variable n-k is the number of columns,  variable i is the number of blocks, k is the number of columns.
+            Dp[n-k][i][k] is the number of the staircase patterns which contains i blocks, exactly has k columns, exactly contains n-k blocks in the first row. 
+            When n-k is equal to 1, dp[i][j’][j’’] is equal to δ<sub>j’j’’</sub>(δ<sub>j’j’’</sub> is called Kronecker delta). 
+            Remark the value of dp[N-K,I,K]. When we add one line to the staircase, the new line must contain N-K blocks and the second line must contain less than or equal to N-K blocks. 
+            Therefore, the following eqution holds. 
+            \[
+            {
+            dp[N-K,I,K]=\sum_{k'=0}^{K} \ dp[N-K,I-N+K,K-k’] \ \ ……(4)
+            }
+            \]
+            We can calculate dp[N-K,I,K] with time complexity O(1) by using comulative sum. 
+            We can calculate the polynomial of q-binomial coefficient with time complexity O(n^4) which is equal to the number of dp elements(More exactly, we can calculate with time complexity O(k^2(n-k)^2).
+            <br><br><br>
+            By considering the correspondence to the staircase, it is obvious that q-binomial coefficient represents the number of an integer partition. 
+            In other words, the coefficient of q<sup>i</sup> which appears in (n k)<sub>q</sub> is equal to “the pattern of the paritition which divides i into k integers that are less than or equal to n-k”. 
+            This is very important fact that relates Rogers-Ramanujan identities.
+            </div> 
+            <br><br><br>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="smoothscroll.js"></script>

@@ -39,7 +39,14 @@
 	font-family:"Times New Roman", serif;
 	text-align:center;
 }
-
+.titlefont{
+	color:#000000;
+	font-family:"Times New Roman",serif;
+	font-size:15pt;
+	margin-left:-25pt;
+	margin-top:0pt;
+	display:inline;
+}
 #gnav {
 	position:relative;
 }
@@ -157,7 +164,8 @@ a::after{
 
 .fontchange{
     font-family:cursive;
-    font-size:60pt;
+    font-size:20pt;
+	margin-top:-23pt;
 }
 /*テキストボックス*/
 
@@ -483,24 +491,24 @@ a.btn-border {
 .notice1{
 	font-family :"Times New Roman", serif;
 	font-size:20pt;
-	position:absolute;
-	left:30%;
-	width:40%;
+	position:relative;
+	left:25%;
+	width:50%;
 }
 
 .notice2{
 	font-family :"Times New Roman", serif;
 	font-size:20pt;
-	position:absolute;
-	left:55%;
-	width:40%;
+	position:relative;
+	left:25%;
+	width:50%;
 }
 .notice3{
 	font-family :"Times New Roman", serif;
 	font-size:20pt;
-	position:absolute;
-	left:5%;
-	width:40%;
+	position:relative;
+	left:25%;
+	width:50%;
 }
 .explanation1{
 	font-family :"Times New Roman", serif;
@@ -523,6 +531,16 @@ a.btn-border {
 }
 .mathmargin2{
 	margin-left:50pt;
+}
+.diagram1{
+	width:40%;
+	position:relative;
+	left:5%;
+}
+.diagram2{
+	width:40%;
+	position:relative;
+	left:5%;
 }
 .topdownexp{
 	margin-top:500pt;
