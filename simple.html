@@ -4,27 +4,13 @@
     <head>
         <meta charset="utf-8">
         <title>q-binomial coefficient calculator</title>
-        <link rel="stylesheet" href="stylesheet.css">
         <script type="text/javascript" async 
             src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
         </script><!-- latex -->
         <script src="js/jquery.js"></script><!-- jquery -->
     </head>
-    <header class="header">
-        <nav id="gnav">
-            <ul class="gnav">
-                <div class="headerfont">
-                    <li><a href="#top"><div class="fontchange" style="display: inline-block">q</div>-b.c. Calculator</a></li>
-                    <li><a href="#calc">VISUALIZE</a></li>
-                    <li><a href="#about">ABOUT</a></li>
-                    <li><a href="#method">METHOD</a></li>
-                    <li><a href="./simple.html" target="_blank" rel="noopener noreferrer">SIMPLE</a></li>
-                </div>
-            </ul>
-        </nav>
-    </header>
     <div id="blackback">
-        <body bgcolor = "black", text = "white">
+        <body bgcolor = "white", text = "black">
             <a id="top" class="atop"></a>
             <section class="effect-fade">
                 <h1 class="title padding">
@@ -32,26 +18,23 @@
             </section>
             <section class="effect-fade">
                 <div class="cp_iptxt cp_iptxt4n">
-                    <input class="ef" id="inputn" type="text" placeholder="">
                     <label>n=</label>
+                    <input class="ef" id="inputn" type="text" placeholder="">
                     <span class="focus_line"><i></i></span>
                 </div>
                 <div class="cp_iptxt cp_iptxt4k">
-                    <input class="ef" id="inputk" type="text" placeholder="">
                     <label>k=</label>
+                    <input class="ef" id="inputk" type="text" placeholder="">
                     <span class="focus_line"><i></i></span>
                 </div>
                 <div class="cp_iptxt cp_iptxt4q">
-                    <input class="ef" id="inputq" type="text" placeholder="">
                     <label>q=</label>
+                    <input class="ef" id="inputq" type="text" placeholder="">
                     <span class="focus_line"><i></i></span>
                 </div>
-                <br><br><br><br>
                 <hr class="rline effect-slide-r"></hr>
                 <div class="press" id="press"></div>
             </section> 
-
-            <br><br><br><br><br>
             <button type="button" id="calbutton" class="calbutton effect-slide-l">calculate</button>
             <div class="error" id="error"></div>
             <br><br><br>
@@ -60,10 +43,9 @@
             \binom{n}{k}_{q} = 
             \]
             </div>
-            <textarea id="result1" type="text" class="resultlabel2" readonly>
+            <textarea id="result1" type="text" readonly>
                 
-            </textarea>
-            <br><br><br><br><br><br><br><br><br><br><br><br>
+            </textarea><br>
             <button type="button" id="fmlbutton" class="calbutton effect-slide-l">formula</button><br><br><br>
             <div class="error2" id="error2">
 
@@ -77,33 +59,28 @@
             <textarea id="result2" type="text" class="resultlabel2" readonly>
                 
             </textarea>
-            <br><br><br><br><br><br><br><br><br><br><br><br>
-            <a id="calc" class="acalc"></a>
+            <br>
+            <a id="calc"></a>
             <button type="button" id="visbutton" class="calbutton effect-slide-l">visualize</button><br><br><br><br><br><br>
-            <div class="error3" id="error3">
+            <div id="error3">
 
             </div>
-
-            <div class="wrap-chart">
-                <div class="chart-container" style="position: relative; width: 100%;height:400pt">
-                    <canvas id="chart01"></canvas>            
-                </div>
+            <div style="position: relative; width: 100%;height:400pt">
+                <canvas id="chart01"></canvas>            
             </div>
-            <br><br><br><br><br><br>
         </body>
     </div>
     <div id="whiteback">
-        <a id="about" class="aabout"></a>
-        <div class="about">About</div><br><br><br><br><br><br><br>
-        <hr class="aboutline" id="aboutline"></hr>
-        <br><br><br><br><br><br><br><br><br>
-        <div class="notice1 fade_off" id ="notice1">
+        <a id="about" ></a>
+        <div>About</div>
+        <hr id="aboutline"></hr>
+        <div  id ="notice1">
             This calculator is developed by Yodai Suzuki. 
             It enables calculations of q-binomial coefficients or polynomials in q that give values of q-binomial coefficients. 
             It also enables a visualization of “q-binomial distribution”. 
             It uses the algorithm which calculates q-binomial coefficients with time complexity O(n^2), and calculates polynomials with time complexity O(k^2(n-k)^2).
         </div><br><br><br><br>
-        <div class="notice2 fade_off" id="notice2">
+        <div  id="notice2">
             The q-binomial coefficient is also called “Gaussian binomial coefficient”. 
             They are q-analogs of the binomial coefficients. A q-analog is a kind of generalizations which introduce new parameter “q” to some mathematical objects. 
             In a q-analog, q-extended-objects must be the same as the original objects in the limit as q→1. For example, q-number([n]<sub>q</sub>) is defined by the following equation.
@@ -117,7 +94,7 @@
             \binom{n}{k}_{q} = \frac{[n]!_{q}}{[k]!_{q}[n-k]!_{q}}
             \]
         </div><br><br><br><br><br>
-        <div class="notice3 fade_off" id="notice3">
+        <div  id="notice3">
             There are many interpretations of the q-binomial coefficient. 
             The most typical one is understanding the q-binomial coefficient as the number of k-dimensional subspaces of the n-dimensional vector space over the q-element field. 
             It is also important that the coefficient of the polynomial which corresponds to q<sup>i</sup> is equal to the number of “(n-k)*k Young diagram" patterns which contain i blocks. 
@@ -125,14 +102,14 @@
         </div><br><br><br><br><br>
     </div>
     <div id="blackback">
-        <div class="method">Method</div><br><br><br><br><br><br><br><br>
-        <a id="method" class="amethod"></a>
-        <hr class="methodline" id="methodline"></hr>
+        <div >Method</div><br><br><br><br><br><br><br><br>
+        <a id="method"></a>
+        <hr id="methodline"></hr>
         <br><br><br>
-        <div class="explanation1">
+        <div>
             1. The value of the q-binomial coefficient
         </div><br><br><br><br>
-        <div class="explanation2">
+        <div>
             Here is the well-known equation of binomial coefficients.
             \[
             \binom{n}{k}=\binom{n-1}{k}+\binom{n-1}{k-1} \ \ \ \ \ ......(1)
@@ -141,8 +118,8 @@
             \[
             \binom{n}{k}_{q}=q^{k}\binom{n-1}{k}+\binom{n-1}{k-1} \ \ \ \ \ ......(2)
             \]
-            <div class="mathmargin2">(proof)<br></div>
-            <div class="mathmargin">
+            <div >(proof)<br></div>
+            <div>
                 \[
                 {
                     q^{k}\binom{n-1}{k}+\binom{n-1}{k-1} \\
@@ -163,10 +140,10 @@
             By using the value of powq, it calculates the value of “comq[i-1][j-1]+powq[j]*comq[i-1][j]”, and this value is exactly equal to comq[i][j]. 
             By using the preceding algorithm, it is possible to calculate the value of the q-binomial coefficient with time complexity O(n^2).
         </div>
-        <div class="explanation1"> <br><br><br>
+        <div> <br><br><br>
             2. The polynomial of the q-binomial coefficient
         </div><br><br><br>
-        <div class="explanation2">
+        <div>
             Before the calculation of the polynomial, consider the S(n,k) which is “staircase”. It suffices the following proposition. Let P(i,j) be a element of the S(n,k).<br>
             1.	S(n,k) is a set which contains lattice points.<br>
             2.	Both i and j suffice 1<=i<=(n-k) and 1<=j<=k.<br>
@@ -180,8 +157,8 @@
             And let Q(n,k,i) be the coefficient of (n k)q which corresponds to the q<sup>i</sup>. 
             C(n,k,i) is equal to Q(n,k,i). This fact is very important and useful when we calculates the polynomial of the q-binomial coefficient.
             <br><br><br>
-            <div class="mathmargin2">(proof)<br></div>
-            <div class="mathmargin">
+            <div >(proof)<br></div>
+            <div >
                     When n is equal to 1, let the number of the staircases which contains 0 blocks be 1.
                     The number of those which contains 1 blocks is 1. 
                     These correspondent to the value of (1 0)<sub>q</sub> and (1 1)<sub>q</sub>.
@@ -238,7 +215,6 @@
             <br><br><br>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="smoothscroll.js"></script>
     <script type="text/javascript" src="script.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
 </body>
