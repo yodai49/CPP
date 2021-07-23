@@ -1,10 +1,6 @@
 var myChart;
 var timeoutflg;
 var timer;
-function timeout(){
-  timeoutflg=1;
-  clearTimeout(timer);
-}
 function myisNaN(nan){
   if (typeof nan == "bigint"){
     return 0;
@@ -16,6 +12,7 @@ function qcal(n,k,q){
   var comq=[];
   var powq=[];
   var result = 0;
+  var starttime=performance.now();
   timeoutflg=0;
   //start of error check
   if (myisNaN(n)|| myisNaN(k)|| myisNaN(q)) return "N, k, q must be numeric"; //Is numeric?
@@ -24,8 +21,6 @@ function qcal(n,k,q){
   if (n < k|| k < 0) return "0"; //0 <= k <= n?
   if (k == 0 || n == k) return "1"; // k == 0 or k == n?
   if (n < k*2) k = n-k; //Is k larger than n/2?
-  if (n * k > 10000000) return "too large";
-  timer=setTimeout('timeout()',1000);
   //end of error check
   if (Number.isInteger(q)){///////////////Q is integer
     q=BigInt(q);
@@ -42,15 +37,13 @@ function qcal(n,k,q){
     comq[0][0]=BigInt("1");
     for(var i = 1;i <= n; i++){
       comq[i][0]=BigInt("1");
-      if (timeoutflg == 1) {
-        clearTimeout(timer);
+      if (performance.now() - starttime > 2000) {
         return "time out";
       }
       for(var j = 1;j<=k;j++){
         comq[i][j]=comq[i-1][j-1]+powq[j]*comq[i-1][j];
       }
     }
-    clearTimeout(timer);
     result=comq[n][k];
 
   } else{                ///////////////if q is not integer
@@ -156,28 +149,25 @@ $("#fmlbutton").on("click",function(){
     document.getElementById(`error2`).animate([{opacity:`0`},{opacity:`1`}],300);
     return 0;
   }
-  if (k*(n-k) > 2000){
-    document.getElementById(`result2`).textContent=``;
-    document.getElementById(`error2`).textContent=`too large`;    
-    document.getElementById(`result2`).animate([{opacity:`1`},{opacity:`0`}],300);
-    document.getElementById(`error2`).animate([{opacity:`0`},{opacity:`1`}],300);
-    return 0;
-  } 
   /////////// calculation of q-binomial coefficient   q=fib(k(n-k)/2)    ////////////
   var deg = n*k - k*k + 1;//degree of polynomial
+  q=qcal(n,k,1);
+  if (q <= 5) q = 5n;
   n =BigInt(n);
   k=BigInt(k);
   var comq=[];
   var powq=[];
   var res = BigInt("0");
+  var starttime=performance.now();
   var middlek=k*(n-k)/BigInt("2");
+/* an obsoleted method
   var fib0=BigInt("1"),fib1=BigInt("1"),fib2=BigInt("2");
-  for(var i = 0; i < middlek-2n;i++){
+  for(var i = 0; i < middlek;i++){
     fib2=fib0+fib1;
     fib0=fib1;
     fib1=fib2;
   }
-  q=fib2;
+  q=fib2;*/
   timeoutflg=0;
   powq[0]=BigInt("1");
   for(var i = 1; i <= k;i++){
@@ -191,6 +181,13 @@ $("#fmlbutton").on("click",function(){
   }
   comq[0][0]=BigInt("1");
   for(var i = 1;i <= n; i++){
+    if(performance.now()-starttime > 3000){
+      document.getElementById(`result2`).textContent=``;
+      document.getElementById(`error2`).textContent=`time out`;    
+      document.getElementById(`result2`).animate([{opacity:`1`},{opacity:`0`}],300);
+      document.getElementById(`error2`).animate([{opacity:`0`},{opacity:`1`}],300);
+      return 0;    
+    }
     comq[i][0]=BigInt("1");
     for(var j = 1;j<=k;j++){
       comq[i][j]=comq[i-1][j-1]+powq[j]*comq[i-1][j];
@@ -199,6 +196,13 @@ $("#fmlbutton").on("click",function(){
   var temp=BigInt(comq[n][k]);
   var res = "";           //////////////result set
   for (var i = 0; i < deg;i++){
+    if(performance.now()-starttime > 3000){
+      document.getElementById(`result2`).textContent=``;
+      document.getElementById(`error2`).textContent=`time out`;    
+      document.getElementById(`result2`).animate([{opacity:`1`},{opacity:`0`}],300);
+      document.getElementById(`error2`).animate([{opacity:`0`},{opacity:`1`}],300);
+      return 0;    
+    }
     if (i != (deg - 1)){
       if (temp % q != 1n){
         res += temp % q + "q^" + i + " + ";
@@ -437,7 +441,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 //////////////////////////////////////////////////////////////////////////
-/* an old method of formula calculation(LU decomposition)/////////////////
+/* an obsoleted method of formula calculation(LU decomposition)/////////////////
 //////////////////////////////////////////////////////////////////////////
 
   var deg = n * k-k*k;//degree of polynomial - 1
@@ -544,7 +548,7 @@ window.addEventListener('DOMContentLoaded', () => {
   } */
 
 //////////////////////////////////////////////////////////////////////////
-/* an old method of formula calculation(dp O[k^2(n-k)^2])/////////////////
+/* an obsoleted method of formula calculation(dp O[k^2(n-k)^2])/////////////////
 //////////////////////////////////////////////////////////////////////////
   /*
 var dp=[]; //dp[i][j][l] i列用いて、合計のブロック数がjで、最左列がl段であるものの個数

@@ -99,9 +99,9 @@
         <br><br><br><br><br><br><br><br><br>
         <div class="notice1 fade_off" id ="notice1">
             This calculator is developed by Yodai Suzuki. 
-            It enables calculations of q-binomial coefficients or polynomials in q that give values of q-binomial coefficients. 
-            It also enables a visualization of “q-binomial distribution”. 
-            It uses the algorithm which calculates q-binomial coefficients with time complexity O(n^2), and calculates polynomials with time complexity O(k^2(n-k)^2).
+            It can perform calculations of q-binomial coefficients and polynomials in q that give values of q-binomial coefficients. 
+            It also can perform a visualization of “q-binomial distribution”. 
+            It uses the algorithm which calculates q-binomial coefficients and polynomials with time complexity O(n^2).
         </div><br><br><br><br>
         <div class="notice2 fade_off" id="notice2">
             The q-binomial coefficient is also called “Gaussian binomial coefficient”. 
@@ -153,13 +153,13 @@
                     = \frac{[(n-1)]!_{q}}{[k]!_{q}[n-k]!_{q}} \left( \frac{1-q^{n}}{1-q} \right) \\
                     = \frac{[n]_{q}[n-1]!_{q}}{[k]!_{q}[n-k]!_{q}} \\
                     = \frac{[n]!_{q}}{[k]!_{q}[n-k]!_{q}} \\
-                    = \binom{n}{k}_{q} \ \ \ \ \  \ \ \ \ \  \ \ \ \ \ (Q.E.D.)
+                    = \binom{n}{k}_{q} \ \ \ \ \ \  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ■
                 }
                 \]
             </div>
             This calculator calculates the value of the q-binomial coefficient by using the equation (2). 
-            At first, it calculates the value of q<sup>i</sup> and save it in powq[i] variable. 
-            Next, it generates the two-dimensionally array named comq[i][j] and initializes comq[i][0] to 1. 
+            At first, it calculates the value of q<sup>i</sup> and saves it in powq[i] variable. 
+            Next, it generates the two dimensional array named comq[i][j] and initializes comq[i][0] to 1. 
             By using the value of powq, it calculates the value of “comq[i-1][j-1]+powq[j]*comq[i-1][j]”, and this value is exactly equal to comq[i][j]. 
             By using the preceding algorithm, it is possible to calculate the value of the q-binomial coefficient with time complexity O(n^2).
         </div>
@@ -180,6 +180,7 @@
             And let Q(n,k,i) be the coefficient of (n k)q which corresponds to the q<sup>i</sup>. 
             C(n,k,i) is equal to Q(n,k,i). This fact is very important and useful when we calculates the polynomial of the q-binomial coefficient.
             <br><br><br>
+            <strong>Theorem 1.</strong> C(n,k,i)=Q(n,k,i) <br><br>
             <div class="mathmargin2">(proof)<br></div>
             <div class="mathmargin">
                     When n is equal to 1, let the number of the staircases which contains 0 blocks be 1.
@@ -206,14 +207,69 @@
                         \ \ C(n-1,k-1,i)\ \ \ (i < k)
                     }
                     \]
-                    Q(n,k,i) and C(n,k,i) suffice the same reccurence relation. Therefore, Q(n,k,i) is equal to C(n,k,i). 
+                    Q(n,k,i) and C(n,k,i) suffice the same reccurence relation. Therefore, Q(n,k,i) is equal to C(n,k,i).　■
+            </div><br><br>
+            For the calculation of the q-binomial coefficients, we need to show the following lemma1 and lemma2.<br><br>
+            <strong>Lemma 1.</strong>　Q(n,k,i)=Q(n,k,k(n-k)-i)<br><br>
+            <div class="mathmargin2">(proof)</div><br>
+            <div class="mathmargin">Think of the “reversal “of the deviation of i. 
+                To reverse the deviation, remove all tiles, put tiles in the all position which no tile have put in (diagram(2) to diagram(3)).
+                Then rotate the whole diagram 180 degrees (diagram(3) to diagram(4)).
+                Let i be the number of tiles which was contained in the previous diagram. 
+                New diagram which is created by the preceding process contains k(n-k)-i tiles. 
+                By using these steps, the bijection from the deviation which contains i tiles to that which contains k(n-k)-i tiles was materialized. 
+                Therefore C(n,k,i) is equal to C(n,k,k(n-k)-i). By using theorem 1, Q(n,k,i) is equal to Q(n,k,k(n-k)-i).　■
+            </div><br>
+            <img src="diagram2.png" alt="diagram3" class="diagram3">
+            <img src="diagram3.png" alt="diagram3" class="diagram3">
+            <img src="diagram4.png" alt="diagram4" class ="diagram3"><br><br>    
+            <strong>Lemma 2.</strong>　Q(n,k,i-1) <= Q(n,k,i)　(When i <= k(n-k)/2) <br><br>
+            <div class="mathmargin2">(proof)</div><br>
+            <div class="mathmargin">
+                Use the mathematical induction. When it holds when n=N-1 and k=K-1, the following equations are true.<br>
+                \[
+                {
+                Q(N,K, \tfrac{K(N-K)}{2}-1)=Q(N-1,K-1, \tfrac{K(N-K)}{2}-1)+Q(N-1,K,\tfrac{K(N-K-2)}{2}-1) \\
+                Q(N,K,\tfrac{K(N-K)}{2})=Q(N-1,K-1,\tfrac{K(N-K)}{2})+Q(N-1,K,\tfrac{K(N-K-2)}{2})        
+                }        
+                \]
+                If we use Lemma1 adequately, we can apply Lemma2 to each terms of the right side. 
+                It is clear that Lemma2 holds when k=0 or i=-1. Therefore Lemma2 holds for all n,k and i.
+                　■
+            </div><br>
+            By using these two lemmas, the following Corollary 1 is easily deduced.<br><br>
+            <strong>Corollary 1. </strong>Q(n,k,i) is maximized when i is equal to k(n-k)/2.<br><br>
+            We can prove the following theorem by using Corollary 1.<br><br>
+            <strong>Theorem 2.</strong>  Q(n,k,i) <= <sub>n</sub>C<sub>k</sub> <br><br>
+            <div class="mathmargin2">(proof)</div><br>
+            <div class="mathmargin">
+                
+                    From Corollary1, this theorem can be proved if we prove it when i is equal to k(n-k)/2. 
+                    Use the matimatical induction. Let it hold when n=N-1 and k=K-1, K.<br>
                     \[
                     {
-                        \ \ \ \ \ \ \ \ \ \  \ \ \ \ \ (Q.E.D.)
+                    Q(N,K,\tfrac{K(N-K}{2})=Q(N-1,K-1,\tfrac{K(N-K)}{2})+Q(N-1,K,\tfrac{K(N-K-2)}{2}) \\
+                    < Q(N-1,K-1,\tfrac{(K-1)(N-K)}{2})+Q(N-1,K,\tfrac{K(N-K-1)}{2}) \\
+                    < \binom{N-1}{K-1}+\binom{N-1}{K} \\
+                    =\binom{N}{K}
                     }
                     \]
-            </div><br>
-            This calculator uses this fact when it calculates Q(n,k,i). 
+                    When k = 0, it cleary holds because Q(n,0,i) = 1 = <sub>n</sub>C<sub>0</sub>. 
+                    It also holds when i=0 because Q(n,k,0)=1 =< <sub>n</sub>C<sub>k</sub>. 
+                    Therefore Theorem 2 holds for all n,k and i.
+                
+            </div><br><br>
+
+            Using theorem 2, Q(n,k,i) is equal to or less than nCk. 
+            That means we can calculate the polynomial of the q-binomial coefficients by using the following steps with time complexity O(n^2).<br><br>
+            1.   Initialize i to 0. Substitute temp for (n k)_q. Let q be <sub>n</sub>C<sub>k</sub>.<br>
+            2.	 The coefficient of q^i is temp % q.<br>
+            3.	 Substitute temp for temp / q.<br>
+            4.	 Finish if temp is equal to zero. Otherwise substitute i for i+1, and back to the step 2.<br><br>
+            This is how it calculates the polynomial of the q-binomial coefficients.<br><br>
+            
+            We can calculate it in another way.
+            This calculator used theorem 1 when it calculates Q(n,k,i) in an obsoleted method. 
             It counts the number of the staircases which corresponds n, k and i
             (It is possible to calculates the value of Q(n,k,i) by using the equation (3), but it is more intuitive to correspond the number of the staircases.).
             <br><br>
