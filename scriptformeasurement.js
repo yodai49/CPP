@@ -1,59 +1,86 @@
 var myChart;
 var timeoutflg;
 var timer;
-function timeout(){
-  timeoutflg=1;
-  clearTimeout(timer);
+var timewatch;
+function myisNaN(nan){
+  if (typeof nan == "bigint"){
+    return 0;
+  } else{
+    return isNaN(nan);
+  }
 }
 function qcal(n,k,q){
   var comq=[];
   var powq=[];
-  var result = BigInt("0");
+  var result = 0;
+  var starttime=performance.now();
   timeoutflg=0;
   //start of error check
-  if (isNaN(n)|| isNaN(k)|| isNaN(q)) return "N, k, q must be numeric"; //Is numeric?
+  if (myisNaN(n)|| myisNaN(k)|| myisNaN(q)) return "N, k, q must be numeric"; //Is numeric?
   if (n <= 0) return "N must be larger than zero";//0 <= n?
   if (n != Math.floor(n) || k != Math.floor(k)) return "N, k must be integer";
   if (n < k|| k < 0) return "0"; //0 <= k <= n?
   if (k == 0 || n == k) return "1"; // k == 0 or k == n?
   if (n < k*2) k = n-k; //Is k larger than n/2?
-  if (n * k > 10000000) return "too large";
-  timer=setTimeout('timeout()',1000);
   //end of error check
-  powq[0]=1;
-  for(var i = 1; i <= k;i++){
-    powq[i]=powq[i-1]*q;
-  }
-  for(var i = 0; i<= n;i++){
-    comq[i]=[];
-    for(var j = 0;j <= k; j++){
-      comq[i][j]=0;
+  if (Number.isInteger(q)){///////////////Q is integer
+    q=BigInt(q);
+    powq[0]=BigInt("1");
+    for(var i = 1; i <= k;i++){
+      powq[i]=powq[i-1]*q;
     }
-  }
-  comq[0][0]=1;
-  for(var i = 1;i <= n; i++){
-    comq[i][0]=1;
-    if (timeoutflg == 1) {
-      clearTimeout(timer);
-      return "time out";
+    for(var i = 0; i<= n;i++){
+      comq[i]=[];
+      for(var j = 0;j <= k; j++){
+        comq[i][j]=BigInt("0");
+      }
     }
-    for(var j = 1;j<=k;j++){
-      comq[i][j]=comq[i-1][j-1]+powq[j]*comq[i-1][j];
-      if (!isFinite(comq[i][j])){
-        result="too large";
-        return result;
-      } 
+    comq[0][0]=BigInt("1");
+    for(var i = 1;i <= n; i++){
+      comq[i][0]=BigInt("1");
+      if (performance.now() - starttime > 2000) {
+        return "time out";
+      }
+      for(var j = 1;j<=k;j++){
+        comq[i][j]=comq[i-1][j-1]+powq[j]*comq[i-1][j];
+      }
     }
+    result=comq[n][k];
+
+  } else{                ///////////////if q is not integer
+    
+    powq[0]=1;
+    for(var i = 1; i <= k;i++){
+      powq[i]=powq[i-1]*q;
+    }
+    for(var i = 0; i<= n;i++){
+      comq[i]=[];
+      for(var j = 0;j <= k; j++){
+        comq[i][j]=0;
+      }
+    }
+    comq[0][0]=1;
+    for(var i = 1;i <= n; i++){
+      comq[i][0]=1;
+      if (timeoutflg == 1) {
+        clearTimeout(timer);
+        return "time out";
+      }
+      for(var j = 1;j<=k;j++){
+        comq[i][j]=comq[i-1][j-1]+powq[j]*comq[i-1][j];
+        if (!isFinite(comq[i][j])){
+          result="too large";
+          return result;
+        } 
+      }
+    }
+    clearTimeout(timer);
+    result=comq[n][k];
   }
-  clearTimeout(timer);
-  result=comq[n][k];
   return result;
 }
 
 $("#inputn").on("change",function(){
-  $("#calbutton").trigger("click");
-  $("#fmlbutton").trigger("click");
-  $("#visbutton").trigger("click");
   document.getElementById(`press`).animate([{opacity:`1`},{opacity:`0`}],300);
   document.getElementById(`press`).textContent=``;
 })
@@ -84,26 +111,32 @@ $("#inputq").on("input",function(){
   document.getElementById(`press`).animate([{opacity:`0`},{opacity:`1`}],300);
 })
 
-
 $("#calbutton").on("click",function(){
-  var n=document.getElementById(`inputn`).value;
-  var k=document.getElementById(`inputk`).value;
-  var q=document.getElementById(`inputq`).value;
-  n=Number(n);
-  k=Number(k);
-  q=Number(q);
-  var sum =qcal(n,k,q);
-  if (isNaN(sum)!=0){
-    document.getElementById(`result1`).textContent=``;
-    document.getElementById(`error`).textContent=sum;    
-    document.getElementById(`result1`).animate([{opacity:`1`},{opacity:`0`}],300);
-    document.getElementById(`error`).animate([{opacity:`0`},{opacity:`1`}],300);
-  } else{ 
-    document.getElementById(`result1`).textContent=sum;
-    document.getElementById(`result1`).animate([{opacity:`0`},{opacity:`1`}],300);
-    document.getElementById(`error`).animate([{opacity:`1`},{opacity:`0`}],300);
-    document.getElementById(`error`).textContent=``;    
+  var res = "";
+  for (var i = 1; i < 200;i++){
+    res+="i = " + i + ": ,";
+    for (var j = 0; j < i;j++){
+      var mytime=0;
+      for (var k = 0; k < 10;k++){
+        timewatch=performance.now();
+        var qqq = qcal(i,j,2);
+        if (myisNaN(qqq)){
+          mytime=-1;
+          break;
+        } else{
+          mytime+=performance.now()-timewatch;
+        }
+      }
+      if (mytime!=-1){
+        mytime*=100;
+        mytime=Math.round(mytime);
+        mytime/=1000;
+      }
+      res+=mytime + ",";
+    }
+    res+="\n";
   }
+  document.getElementById("result2").textContent=res;
 })
 
 $("#fmlbutton").on("click",function(){
@@ -114,77 +147,83 @@ $("#fmlbutton").on("click",function(){
   k=Number(k);
   q=Number(q);
   sum=qcal(n,k,0);//error check
-  if (isNaN(sum)){
+  if (myisNaN(sum)){
     document.getElementById(`result2`).textContent=``;
     document.getElementById(`error2`).textContent=sum;    
     document.getElementById(`result2`).animate([{opacity:`1`},{opacity:`0`}],300);
     document.getElementById(`error2`).animate([{opacity:`0`},{opacity:`1`}],300);
     return 0;
   }
-  if (k*k*(n-k)*(n-k) > 100000000){
-    document.getElementById(`result2`).textContent=``;
-    document.getElementById(`error2`).textContent=`too large`;    
-    document.getElementById(`result2`).animate([{opacity:`1`},{opacity:`0`}],300);
-    document.getElementById(`error2`).animate([{opacity:`0`},{opacity:`1`}],300);
-    return 0;
-  }
+  /////////// calculation of q-binomial coefficient   q=fib(k(n-k)/2)    ////////////
   var deg = n*k - k*k + 1;//degree of polynomial
-  var dp=[]; //dp[i][j][l] i列用いて、合計のブロック数がjで、最左列がl段であるものの個数
-  var sum=[];//sum[j][l] dp[i][j][0]からdp[i][j][l]までの和 合計のブロック数がjで最左列がl以下のものの総数
-  for (var i = 1;i <= (n-k);i++){
-    dp[i] = [];
-    for (var j = 0; j < deg;j++){
-      dp[i][j] = [];
-      for (var l = 0;l <= k;l++){
-        if(i == 1){
-          if ((j == l) && (j != -1)){
-            dp[i][j][l] = 1;
-          } else{
-            dp[i][j][l] = 0;
-          }
-        } else {
-          if (j > l){
-            dp[i][j][l] = sum[j-l][l];
-          } else{
-            dp[i][j][l] = 0;
-          }
-        }
-      }
-    }
-    for (var j = 0; j < deg; j++){
-      sum[j]=[];
-      for (var l = 0; l<=k; l++){
-        if (l == 0){
-          sum[j][l] = dp[i][j][l];
-        } else{
-          sum[j][l] = sum[j][l-1]+dp[i][j][l];
-        }
-      }
+  q=qcal(n,k,1);
+  if (q <= 5) q = 5n;
+  n =BigInt(n);
+  k=BigInt(k);
+  var comq=[];
+  var powq=[];
+  var res = BigInt("0");
+  var starttime=performance.now();
+  var middlek=k*(n-k)/BigInt("2");
+/* an obsoleted method
+  var fib0=BigInt("1"),fib1=BigInt("1"),fib2=BigInt("2");
+  for(var i = 0; i < middlek;i++){
+    fib2=fib0+fib1;
+    fib0=fib1;
+    fib1=fib2;
+  }
+  q=fib2;*/
+  timeoutflg=0;
+  powq[0]=BigInt("1");
+  for(var i = 1; i <= k;i++){
+    powq[i]=powq[i-1]*q;
+  }
+  for(var i = 0; i<= n;i++){
+    comq[i]=[];
+    for(var j = 0;j <= k; j++){
+      comq[i][j]=BigInt("0");
     }
   }
-
-  var res = "";
+  comq[0][0]=BigInt("1");
+  for(var i = 1;i <= n; i++){
+    if(performance.now()-starttime > 3000){
+      document.getElementById(`result2`).textContent=``;
+      document.getElementById(`error2`).textContent=`time out`;    
+      document.getElementById(`result2`).animate([{opacity:`1`},{opacity:`0`}],300);
+      document.getElementById(`error2`).animate([{opacity:`0`},{opacity:`1`}],300);
+      return 0;    
+    }
+    comq[i][0]=BigInt("1");
+    for(var j = 1;j<=k;j++){
+      comq[i][j]=comq[i-1][j-1]+powq[j]*comq[i-1][j];
+    }
+  }
+  var temp=BigInt(comq[n][k]);
+  var res = "";           //////////////result set
   for (var i = 0; i < deg;i++){
-    var tempsum=0;
-    for (var j = 1; j <= (n-k);j++){
-      for(var l = 0; l <= k;l++){
-        tempsum+=dp[j][i][l];
-      }
+    if(performance.now()-starttime > 3000){
+      document.getElementById(`result2`).textContent=``;
+      document.getElementById(`error2`).textContent=`time out`;    
+      document.getElementById(`result2`).animate([{opacity:`1`},{opacity:`0`}],300);
+      document.getElementById(`error2`).animate([{opacity:`0`},{opacity:`1`}],300);
+      return 0;    
     }
     if (i != (deg - 1)){
-      if (tempsum != 1){
-        res += tempsum + "q^" + i + " + ";
+      if (temp % q != 1n){
+        res += temp % q + "q^" + i + " + ";
       } else {
         res +=  "q^" + i + " + ";
       }
     } else{
-      if (tempsum != 1){
-        res += tempsum + "q^" + i ;
+      if (temp % q != 1n){
+        res += temp % q + "q^" + i ;
       } else {
         res +=  "q^" + i;
       }
     }
-  }
+    temp-=temp % q;
+    temp/=q;
+  }                  /////////////////////// end of the calculation
     document.getElementById(`result2`).textContent=res;
     document.getElementById(`result2`).animate([{opacity:`0`},{opacity:`1`}],300);
     document.getElementById(`error2`).animate([{opacity:`1`},{opacity:`0`}],300);
@@ -200,7 +239,7 @@ $("#visbutton").on("click",function(){ //visualize
   k=Number(k);
   q=Number(q);
   k=Math.floor(n/2);
-  if (isNaN(qcal(n,1,q))|| n > 100 || isNaN(qcal(n,k,q))){    
+  if (myisNaN(qcal(n,1,q))|| n > 100 || myisNaN(qcal(n,k,q))){    
     if(typeof myChart !== 'undefined' && myChart) myChart.destroy();
     document.getElementById(`error3`).textContent=`too large or non-numeric`;    
     document.getElementById(`error3`).animate([{opacity:`0`},{opacity:`1`}],300);
@@ -239,9 +278,7 @@ $("#visbutton").on("click",function(){ //visualize
     qdata[i]=comq[n][i];
     axis[i] = i;
   }
-// var ctx = document.getElementById("chart01").getContext('2d');  
- var qmax;
-  qmax = qcal(n,k,q)*1.1;
+  var qmax=comq[n][k]*1.1;
   if(typeof myChart !== 'undefined' && myChart) myChart.destroy();
   myChart = new Chart(ctx, {
     type: 'line',
@@ -408,7 +445,10 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 
-/* an old method of formula calculation
+//////////////////////////////////////////////////////////////////////////
+/* an obsoleted method of formula calculation(LU decomposition)/////////////////
+//////////////////////////////////////////////////////////////////////////
+
   var deg = n * k-k*k;//degree of polynomial - 1
   var a=[]; //Matrix A
   var b=[]; // Vector B
@@ -511,3 +551,64 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById(`result2`).animate([{opacity:`1`},{opacity:`0`}],300);
     document.getElementById(`error2`).animate([{opacity:`0`},{opacity:`1`}],300);
   } */
+
+//////////////////////////////////////////////////////////////////////////
+/* an obsoleted method of formula calculation(dp O[k^2(n-k)^2])/////////////////
+//////////////////////////////////////////////////////////////////////////
+  /*
+var dp=[]; //dp[i][j][l] i列用いて、合計のブロック数がjで、最左列がl段であるものの個数
+var sum=[];//sum[j][l] dp[i][j][0]からdp[i][j][l]までの和 合計のブロック数がjで最左列がl以下のものの総数
+for (var i = 1;i <= (n-k);i++){
+  dp[i] = [];
+  for (var j = 0; j < deg;j++){
+    dp[i][j] = [];
+    for (var l = 0;l <= k;l++){
+      if(i == 1){
+        if ((j == l) && (j != -1)){
+          dp[i][j][l] = 1;
+        } else{
+          dp[i][j][l] = 0;
+        }
+      } else {
+        if (j > l){
+          dp[i][j][l] = sum[j-l][l];
+        } else{
+          dp[i][j][l] = 0;
+        }
+      }
+    }
+  }
+  for (var j = 0; j < deg; j++){
+    sum[j]=[];
+    for (var l = 0; l<=k; l++){
+      if (l == 0){
+        sum[j][l] = dp[i][j][l];
+      } else{
+        sum[j][l] = sum[j][l-1]+dp[i][j][l];
+      }
+    }
+  }
+}
+
+var res = "";
+for (var i = 0; i < deg;i++){
+  var tempsum=0;
+  for (var j = 1; j <= (n-k);j++){
+    for(var l = 0; l <= k;l++){
+      tempsum+=dp[j][i][l];
+    }
+  }
+  if (i != (deg - 1)){
+    if (tempsum != 1){
+      res += tempsum + "q^" + i + " + ";
+    } else {
+      res +=  "q^" + i + " + ";
+    }
+  } else{
+    if (tempsum != 1){
+      res += tempsum + "q^" + i ;
+    } else {
+      res +=  "q^" + i;
+    }
+  }
+}*/
