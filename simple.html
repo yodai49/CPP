@@ -72,16 +72,17 @@
         </body>
     </div>
     <div id="whiteback">
-        <a id="about" ></a>
-        <div>About</div>
-        <hr id="aboutline"></hr>
-        <div  id ="notice1">
+        <a id="about" class="aabout"></a>
+        <div class="about">About</div><br><br><br><br><br><br><br>
+        <hr class="aboutline" id="aboutline"></hr>
+        <br><br><br><br><br><br><br><br><br>
+        <div class="notice1 fade_off" id ="notice1">
             This calculator is developed by Yodai Suzuki. 
-            It enables calculations of q-binomial coefficients or polynomials in q that give values of q-binomial coefficients. 
-            It also enables a visualization of “q-binomial distribution”. 
-            It uses the algorithm which calculates q-binomial coefficients with time complexity O(n^2), and calculates polynomials with time complexity O(k^2(n-k)^2).
+            It can perform calculations of q-binomial coefficients and polynomials in q that give values of q-binomial coefficients. 
+            It also can perform a visualization of “q-binomial distribution”. 
+            It uses the algorithm which calculates q-binomial coefficients and polynomials with time complexity O(n^2).
         </div><br><br><br><br>
-        <div  id="notice2">
+        <div class="notice2 fade_off" id="notice2">
             The q-binomial coefficient is also called “Gaussian binomial coefficient”. 
             They are q-analogs of the binomial coefficients. A q-analog is a kind of generalizations which introduce new parameter “q” to some mathematical objects. 
             In a q-analog, q-extended-objects must be the same as the original objects in the limit as q→1. For example, q-number([n]<sub>q</sub>) is defined by the following equation.
@@ -95,7 +96,7 @@
             \binom{n}{k}_{q} = \frac{[n]!_{q}}{[k]!_{q}[n-k]!_{q}}
             \]
         </div><br><br><br><br><br>
-        <div  id="notice3">
+        <div class="notice3 fade_off" id="notice3">
             There are many interpretations of the q-binomial coefficient. 
             The most typical one is understanding the q-binomial coefficient as the number of k-dimensional subspaces of the n-dimensional vector space over the q-element field. 
             It is also important that the coefficient of the polynomial which corresponds to q<sup>i</sup> is equal to the number of “(n-k)*k Young diagram" patterns which contain i blocks. 
@@ -103,6 +104,10 @@
         </div><br><br><br><br><br>
     </div>
     <div id="blackback">
+        <div class="method">Method</div><br><br><br><br><br><br><br><br>
+        <a id="method" class="amethod"></a>
+        <hr class="methodline" id="methodline"></hr>
+        <br><br><br>
         <div class="explanation1">
             1. The value of the q-binomial coefficient
         </div><br><br><br><br>
@@ -115,7 +120,7 @@
             \[
             \binom{n}{k}_{q}=q^{k}\binom{n-1}{k}+\binom{n-1}{k-1} \ \ \ \ \ ......(2)
             \]
-            <div class="mathmargin2">(proof)<br></div>
+            <div class="mathmargin2">(prove)<br></div>
             <div class="mathmargin">
                 \[
                 {
@@ -141,27 +146,27 @@
             2. The polynomial of the q-binomial coefficient
         </div><br><br><br>
         <div class="explanation2">
-            Before the calculation of the polynomial, consider the S(n,k) which is “staircase”. It suffices the following proposition. Let P(i,j) be a element of the S(n,k).<br>
+            Before the calculation of the polynomial, we first have to consider the S(n,k) which is “staircase”. It satisfies the following proposition. Let P(i,j) be a element of the S(n,k).<br>
             1.	S(n,k) is a set which contains lattice points.<br>
-            2.	Both i and j suffice 1<=i<=(n-k) and 1<=j<=k.<br>
-            3.	S(i-1,j) is a element of the S(n,k). (i>=2)<br>
-            4.	The number of elements which suffice j=J is larger than or equal to that of elements which suffice j=J+1. <br><br>
+            2.	Both i and j satisfies 1<=i<=(n-k) and 1<=j<=k.<br>
+            3.	S(i-1,j) is an element of the S(n,k). (i>=2)<br>
+            4.	The number of elements which satisfies j=J is larger than or equal to that of elements which satisfies j=J+1. <br><br>
             Let n be 12, and k be 5. The following diagram (1) is the example of the S(n,k). <br><br>
             <img src="diagram1.png" alt="diagram1" class="diagram1">
             <img src="diagram2.png" alt="diagram2" class ="diagram2"><br><br>
-            If we substitute boxes for points, this diagram will be easier to understand(diagram (2)). It exactly seems a “staircase”. This is also called “Young diagram”.<br><br>
+            If we substitute tiles for points, this diagram will be easier to understand(diagram (2)). It exactly seems a “staircase”. This is also called “Young diagram”.<br><br>
             Let C(n,k,i) be the patterns of the S(n,k) which contains i boxes or points. 
-            And let Q(n,k,i) be the coefficient of (n k)q which corresponds to the q<sup>i</sup>. 
-            C(n,k,i) is equal to Q(n,k,i). This fact is very important and useful when we calculates the polynomial of the q-binomial coefficient.
+            In addition, let Q(n,k,i) be the coefficient of q<sup>i</sup> in (n k)q.
+            C(n,k,i) is equal to Q(n,k,i). This fact is very important and useful as it allows us to take many approaches to calculate the polynomial which gives the q-binomial coefficient.
             <br><br><br>
             <strong>Theorem 1.</strong> C(n,k,i)=Q(n,k,i) <br><br>
-            <div class="mathmargin2">(proof)<br></div>
+            <div class="mathmargin2">(prove)<br></div>
             <div class="mathmargin">
-                    When n is equal to 1, let the number of the staircases which contains 0 blocks be 1.
-                    The number of those which contains 1 blocks is 1. 
-                    These correspondent to the value of (1 0)<sub>q</sub> and (1 1)<sub>q</sub>.
-                    Remark recurrence relations of C(n,k,i) and Q(n,k,i).
-                    It is obvious from (2) that Q(n,k,i) suffices the following equation (3).
+                    When n=1, let the number of the staircases which contains 0 blocks be 1.
+                    The number of patterns for placing the block as staircases is 1 as well. 
+                    These correspond to the value of (1 0)<sub>q</sub> and (1 1)<sub>q</sub>.
+                    Focus on recurrence relations of C(n,k,i) and Q(n,k,i).
+                    It is obvious from (2) that Q(n,k,i) satisfies the following equation (3).
                     \[
                     {
                     Q(n,k,i) = \\
@@ -169,11 +174,11 @@
                     \ \ Q(n-1,k-1,i)\ \ \ (i < k) \ \ \ \ \ \ \                 
                     }
                     \]
-                    Following considerations about C(n,k,i) are true.<br>
-                    1.	Staircases can be classified into two groups according to whether they contain (1,k) or not.<br>
-                    2.	The number of the staircases which contain (1,k) is equal to the number of those which delete one column and reduce k blocks. <br>
-                    3.	The number of the those which doesn’t contain (1,k) is equal to the number of those which delete one row.<br>
-                    The following equation holds because of considerations 2 and 3.<br>
+                    Also, the following statements about C(n,k,i) are obviously true.<br>
+                    1.	Staircases can be classified into two groups, one containing (1,k) and the other or not.<br>
+                    2.	The number of the staircases which contain (1,k) is equal to the number of staircases with 1 less number of column and k less number of blocks. <br>
+                    3.	The number of those which don't contain (1,k) is equal to the number of staircases with 1 less number of row.<br>
+                    The following equation holds because of the statement 2 and 3.<br>
                     \[
                     {
                         C(n,k,i)= \\
@@ -181,15 +186,15 @@
                         \ \ C(n-1,k-1,i)\ \ \ (i < k)
                     }
                     \]
-                    Q(n,k,i) and C(n,k,i) suffice the same reccurence relation. Therefore, Q(n,k,i) is equal to C(n,k,i).　■
+                    Q(n,k,i) and C(n,k,i) satisfies the same reccurence relation. Therefore, Q(n,k,i) is equal to C(n,k,i).　■
             </div><br><br>
             For the calculation of the q-binomial coefficients, we need to show the following lemma1 and lemma2.<br><br>
             <strong>Lemma 1.</strong>　Q(n,k,i)=Q(n,k,k(n-k)-i)<br><br>
-            <div class="mathmargin2">(proof)</div><br>
+            <div class="mathmargin2">(prove)</div><br>
             <div class="mathmargin">Think of the “reversal “of the deviation of i. 
-                To reverse the deviation, remove all tiles, put tiles in the all position which no tile have put in (diagram(2) to diagram(3)).
+                To reverse the deviation, remove all tiles, put tiles in all of the positions which the tile have not been put in (diagram(2) to diagram(3)).
                 Then rotate the whole diagram 180 degrees (diagram(3) to diagram(4)).
-                Let i be the number of tiles which was contained in the previous diagram. 
+                Let i be the number of tiles which were contained in the previous diagram. 
                 New diagram which is created by the preceding process contains k(n-k)-i tiles. 
                 By using these steps, the bijection from the deviation which contains i tiles to that which contains k(n-k)-i tiles was materialized. 
                 Therefore C(n,k,i) is equal to C(n,k,k(n-k)-i). By using theorem 1, Q(n,k,i) is equal to Q(n,k,k(n-k)-i).　■
@@ -198,9 +203,9 @@
             <img src="diagram3.png" alt="diagram3" class="diagram3">
             <img src="diagram4.png" alt="diagram4" class ="diagram3"><br><br>    
             <strong>Lemma 2.</strong>　Q(n,k,i-1) <= Q(n,k,i)　(When i <= k(n-k)/2) <br><br>
-            <div class="mathmargin2">(proof)</div><br>
+            <div class="mathmargin2">(prove)</div><br>
             <div class="mathmargin">
-                Use the mathematical induction. When it holds when n=N-1 and k=K-1, the following equations are true.<br>
+                Use the mathematical induction. As for n,k, consider n=N-1 and k=K-1 as already proven and they hold.<br>
                 \[
                 {
                 Q(N,K, \tfrac{K(N-K)}{2}-1)=Q(N-1,K-1, \tfrac{K(N-K)}{2}-1)+Q(N-1,K,\tfrac{K(N-K-2)}{2}-1) \\
@@ -215,10 +220,10 @@
             <strong>Corollary 1. </strong>Q(n,k,i) is maximized when i is equal to k(n-k)/2.<br><br>
             We can prove the following theorem by using Corollary 1.<br><br>
             <strong>Theorem 2.</strong>  Q(n,k,i) <= <sub>n</sub>C<sub>k</sub> <br><br>
-            <div class="mathmargin2">(proof)</div><br>
+            <div class="mathmargin2">(prove)</div><br>
             <div class="mathmargin">
                 
-                    From Corollary1, this theorem can be proved if we prove it when i is equal to k(n-k)/2. 
+                    From Corollary1, this theorem can be proven if we prove i=k(n-k)/2. 
                     Use the matimatical induction. Let it hold when n=N-1 and k=K-1, K.<br>
                     \[
                     {
@@ -237,14 +242,13 @@
             Using theorem 2, Q(n,k,i) is equal to or less than nCk. 
             That means we can calculate the polynomial of the q-binomial coefficients by using the following steps with time complexity O(n^2).<br><br>
             1.   Initialize i to 0. Substitute temp for (n k)_q. Let q be <sub>n</sub>C<sub>k</sub>.<br>
-            2.	 The coefficient of q^i is temp % q.<br>
-            3.	 Substitute temp for temp / q.<br>
-            4.	 Finish if temp is equal to zero. Otherwise substitute i for i+1, and back to the step 2.<br><br>
+            2.	 The coefficient of q^i is equal to the remainder of temp devided by q.<br>
+            3.	 Divide temp by q.<br>
+            4.	 Finish if temp is equal to zero. Otherwise substitute i for i+1, and repeat from the step 2.<br><br>
             This is how it calculates the polynomial of the q-binomial coefficients.<br><br>
             
             We can calculate it in another way.
-            This calculator used theorem 1 when it calculates Q(n,k,i) in an obsoleted method. 
-            It counts the number of the staircases which corresponds n, k and i
+            The calculator which used theorem 1 and calculates the number of Q(n,k,i) by counting the number of the staircases is an inefficient method.
             (It is possible to calculates the value of Q(n,k,i) by using the equation (3), but it is more intuitive to correspond the number of the staircases.).
             <br><br>
             At first, it prepares a three-dimensional array dp[n-k][i][k].
@@ -264,12 +268,13 @@
             By considering the correspondence to the staircase, it is obvious that q-binomial coefficient represents the number of an integer partition. 
             In other words, the coefficient of q<sup>i</sup> which appears in (n k)<sub>q</sub> is equal to “the pattern of the paritition which divides i into k integers that are less than or equal to n-k”. 
             This is very important fact that relates Rogers-Ramanujan identities.
-            </div> 
+           
             <br><br><br>
             References<br>
             『整数の分割』ジョージ・アンドリュース、キムモ・エリクソン著　佐藤文広　訳　数学書房　2008/3/25　第１版第２刷発行<br>
-            『整数の分割の母関数と組合せ論』　安東雅訓（稚内北星学園大学） https://ousar.lib.okayama-u.ac.jp/files/public/5/52648/20160528114014100429/O0004419_fulltext.pdf,  2021/07/23<br>
-            “Upper Bounds and Asymptotics for the q-Binomial Coefficients” , Lefteris M.Kirousis, Yannis C. Stamatiou, and Malvina Vamvakari , https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.95.7618&rep=rep1&type=pdf, 2021/5/27
+            『整数の分割の母関数と組合せ論』　安東雅訓（稚内北星学園大学） https://ousar.lib.okayama-u.ac.jp/files/public/5/52648/20160528114014100429/O0004419_fulltext.pdf,  2021/07/23閲覧<br>
+            “Upper Bounds and Asymptotics for the q-Binomial Coefficients” , Lefteris M.Kirousis, Yannis C. Stamatiou, and Malvina Vamvakari , https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.95.7618&rep=rep1&type=pdf, 2021/5/27閲覧
+        </div> 
     </div>
 
         以下日本語訳<br><br>
